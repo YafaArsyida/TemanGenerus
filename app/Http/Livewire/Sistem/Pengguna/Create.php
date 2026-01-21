@@ -48,9 +48,9 @@ class Create extends Component
         // Menyimpan pengguna baru
         $user = User::create($validatedData);
 
-        // Loop untuk setiap jenjang yang dipilih dan masukkan ke tabel ms_akses_jenjang
+        // Loop untuk setiap jenjang yang dipilih dan masukkan ke tabel ms_akses_pengguna
         foreach ($this->ms_desa_id as $ms_desa_id) {
-            DB::table('ms_akses_jenjang')->insert([
+            DB::table('ms_akses_pengguna')->insert([
                 'ms_pengguna_id' => $user->ms_pengguna_id, // ID pengguna yang baru dibuat
                 'ms_desa_id' => $ms_desa_id, // ID jenjang yang dipilih
                 'created_at' => now(), // Tanggal dibuat
@@ -60,7 +60,7 @@ class Create extends Component
 
         $this->dispatchBrowserEvent('alertify-success', ['message' => 'Berhasil menambah petugas!']);
         $this->resetInput();
-        $this->dispatchBrowserEvent('hide-create-modal', ['modalId' => 'ModalAddPengguna']);
+        $this->dispatchBrowserEvent('hide-modal', ['modalId' => 'ModalAddPengguna']);
         $this->emit('refreshPengguna');
     }
 

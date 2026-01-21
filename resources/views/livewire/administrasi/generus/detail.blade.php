@@ -30,6 +30,7 @@
 
                             <div>
                                 <i class="ri-team-line text-success me-1"></i>
+                                Kelompok:
                                 <span class="text-body fw-medium">
                                     {{ $generus->ms_kelompok->nama_kelompok ?? '-' }}
                                 </span>
@@ -39,6 +40,7 @@
 
                             <div>
                                 <i class="ri-government-line text-primary me-1"></i>
+                                Desa:
                                 <span class="text-body fw-medium">
                                     {{ $generus->ms_kelompok->ms_desa->nama_desa ?? '-' }}
                                 </span>

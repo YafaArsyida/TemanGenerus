@@ -244,7 +244,7 @@
                     </div>
                 </div>
                 <div class="mx-n3">
-                    <div data-simplebar data-simplebar-auto-hide="false" style="max-height: 420px;" class="px-3">
+                    <div class="table-responsive" style="max-height: 420px;">
                         <table class="table table-striped table-bordered align-middle">
                         {{-- <table class="table table-striped table-bordered align-middle" wire:poll.visible.5s="refreshPresensi"> --}}
                             <thead class="table-light sticky-top">

@@ -83,7 +83,7 @@ class Edit extends Component
         // Emit event untuk memberikan feedback pada pengguna
         $this->emit('refreshPengguna');
         $this->dispatchBrowserEvent('alertify-success', ['message' => 'Data pengguna berhasil diperbarui']);
-        $this->dispatchBrowserEvent('hide-edit-modal', ['modalId' => 'ModalEditPengguna']);
+        $this->dispatchBrowserEvent('hide-modal', ['modalId' => 'ModalEditPengguna']);
 
         // Reset field input untuk modal edit
         $this->resetInputFields();
