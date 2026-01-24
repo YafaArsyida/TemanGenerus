@@ -31,29 +31,34 @@
     
             {{-- Search --}}
             <div class="col-xxl-8 col-sm-6">
+                <label class="form-label fw-semibold">Cari Nama Generus</label>
                 <div class="search-box">
                     <input type="text" class="form-control" wire:model.debounce.400ms="search"
-                        placeholder="Cari nama generus ...">
+                        placeholder="Ketik nama generus...">
                     <i class="ri-search-line search-icon"></i>
                 </div>
             </div>
+    
+            {{-- Gender --}}
             <div class="col-xxl-2 col-sm-3">
+                <label class="form-label fw-semibold">Laki-Laki/ Perempuan</label>
                 <select class="form-select" wire:model="gender">
                     <option value="">Semua Generus</option>
-                    <option value="laki-laki">Laki - Laki</option>
+                    <option value="laki-laki">Laki-laki</option>
                     <option value="perempuan">Perempuan</option>
                 </select>
             </div>
     
             {{-- Jenjang Usia --}}
             <div class="col-xxl-2 col-sm-3">
+                <label class="form-label fw-semibold">Jenjang Usia</label>
                 <select class="form-select" wire:model="jenjangUsia">
                     <option value="">Semua Jenjang Usia</option>
-                    <option value="caberawit">Caberawit ( < 12 Tahun )</option>
-                    <option value="remaja">Remaja ( 12 – 25 Tahun )</option>
-                    <option value="gp">GP ( 12 – 23 Tahun )</option>
-                    <option value="pra_nikah">Pra Nikah ( 19 – 23 Tahun )</option>
-                    <option value="mandiri">Mandiri ( > 23 Tahun )</option>
+                    <option value="caberawit">Caberawit (&lt; 12 Tahun)</option>
+                    <option value="remaja">Remaja (12 – 25 Tahun)</option>
+                    <option value="gp">GP (12 – 23 Tahun)</option>
+                    <option value="pra_nikah">Pra Nikah (19 – 23 Tahun)</option>
+                    <option value="mandiri">Mandiri (&gt; 23 Tahun)</option>
                 </select>
             </div>
     

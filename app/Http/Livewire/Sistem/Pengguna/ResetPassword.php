@@ -33,7 +33,7 @@ class ResetPassword extends Component
         // Emit event untuk notifikasi di index
         // $this->emit('refreshPengguna');
         $this->dispatchBrowserEvent('alertify-success', ['message' => 'Password berhasil di-reset!']);
-        $this->dispatchBrowserEvent('hide-edit-modal', ['modalId' => 'ModalKonfirmasiReset']);
+        $this->dispatchBrowserEvent('hide-modal', ['modalId' => 'ModalKonfirmasiReset']);
 
         // Reset properti
         $this->ms_pengguna_id = null;

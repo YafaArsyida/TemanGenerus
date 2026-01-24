@@ -46,7 +46,7 @@
             <div class="col-lg-2">
                 <label class="form-label">Jenjang Usia</label>
                 <select class="form-select" wire:model="jenjangUsia">
-                    <option value="semua">Semua Generus</option>
+                    <option value="">Semua Generus</option>
                     <option value="caberawit">
                         Caberawit (0 – 11 Tahun)
                     </option>

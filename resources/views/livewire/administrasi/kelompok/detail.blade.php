@@ -73,7 +73,7 @@
                                         <div>
                                             <p class="text-muted mb-1">Generus :</p>
                                             <h5 class="mb-0 fs-14">
-                                                1
+                                                {{ $kelompok->jumlah_generus() ?? 0 }}
                                             </h5>
                                         </div>
                                     </div>

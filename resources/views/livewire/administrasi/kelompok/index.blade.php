@@ -57,7 +57,7 @@
                     wire:click="setActiveTab('desa-{{ $item->ms_desa_id }}')" data-bs-toggle="tab"
                     href="#tabDesa{{ $item->ms_desa_id }}" role="tab">
                     <i class="mdi mdi-tag me-1 align-bottom"></i>
-                    {{ $item->nama_desa }}
+                    Desa {{ $item->nama_desa }}
                 </a>
             </li>
             @endforeach

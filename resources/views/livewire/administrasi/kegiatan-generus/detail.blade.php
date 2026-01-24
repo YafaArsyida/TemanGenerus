@@ -158,7 +158,8 @@
                             <div class="col-lg-3 col-sm-6">
                                 <div class="p-2 border border-dashed rounded">
                                     <p class="text-muted mb-1">Pengumuman</p>
-                                    <a wire:click.prevent="$emit('KegiatanPengumuman', {{ $kegiatan->ms_kegiatan_id }})" class="text-success fw-medium">
+                                    <a style="cursor: pointer" wire:click.prevent="kegiatanPengumuman({{ $kegiatan->ms_kegiatan_id }})"
+                                        class="text-success fw-medium">
                                         <i class="mdi mdi-whatsapp me-1"></i>
                                         Cetak Pengumuman
                                     </a>
