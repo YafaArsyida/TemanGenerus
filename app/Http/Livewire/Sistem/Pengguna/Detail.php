@@ -9,7 +9,7 @@ class Detail extends Component
 {
     public $penggunaDetail;
 
-    public $nama, $email, $peran, $telepon, $alamat, $created_at;
+    public $nama, $email, $telepon, $peran, $alamat, $created_at;
     public $aksesPengguna = [];
 
     protected $listeners = ['detailPengguna'];
@@ -25,6 +25,7 @@ class Detail extends Component
         // Isi properti dengan data pengguna
         $this->nama = $pengguna->nama;
         $this->email = $pengguna->email;
+        $this->telepon = $pengguna->telepon;
         $this->peran = $pengguna->peran;
         $this->created_at = $pengguna->created_at->format('d F Y H:i');
         // Ambil jenjang yang dapat diakses pengguna

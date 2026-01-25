@@ -11,6 +11,7 @@ class Create extends Component
 {
     public $ms_kelompok_id;
     public $nama_generus;
+    public $nomor_telepon;
     public $tempat_lahir;
     public $tanggal_lahir;
     public $jenis_kelamin;
@@ -35,6 +36,7 @@ class Create extends Component
     protected $rules = [
         'ms_kelompok_id' => 'required|exists:ms_kelompok,ms_kelompok_id',
         'nama_generus'   => 'required|string|min:3|max:150',
+        'nomor_telepon'   => 'nullable|string|max:20',
         'tempat_lahir'   => 'nullable|string|max:120',
         'tanggal_lahir'  => 'nullable|date',
         'jenis_kelamin'  => 'required|in:laki-laki,perempuan',
@@ -69,6 +71,7 @@ class Create extends Component
             Generus::create([
                 'ms_kelompok_id' => $this->ms_kelompok_id,
                 'nama_generus'   => $this->nama_generus,
+                'nomor_telepon'   => $this->nomor_telepon,
                 'tempat_lahir'   => $this->tempat_lahir,
                 'tanggal_lahir'  => $this->tanggal_lahir,
                 'jenis_kelamin'  => $this->jenis_kelamin,
@@ -101,6 +104,7 @@ class Create extends Component
     {
         $this->ms_kelompok_id = '';
         $this->nama_generus = '';
+        $this->nomor_telepon = '';
         $this->tempat_lahir = '';
         $this->tanggal_lahir = '';
         $this->jenis_kelamin = '';

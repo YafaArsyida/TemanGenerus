@@ -4,8 +4,10 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-light p-3">
-                    <h5 class="modal-title">Detail Petugas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title fw-bold">
+                        <i class="ri-eye-line me-1 text-success"></i> Detail Pengguna
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -17,11 +19,15 @@
                             <label for="email" class="form-label">Username</label>
                             <p>{{ $email }}</p>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <label for="peran" class="form-label">Peran</label>
                             <p class="text-secondary text-uppercase">{{ $peran }}</p>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
+                            <label for="telepon" class="form-label">Telepon</label>
+                            <p class="text-success text-uppercase">{{ $telepon }}</p>
+                        </div>
+                        <div class="col-lg-4">
                             <label for="created_at" class="form-label">Tanggal Pendaftaran</label>
                             <p>{{ $created_at }}</p>
                         </div>

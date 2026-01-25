@@ -3,7 +3,9 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-light p-3">
-                    <h5 class="modal-title">Import Generus</h5>
+                    <h5 class="modal-title fw-bold">
+                        <i class="ri-database-2-line me-1 text-success"></i>Import Generus
+                    </h5>
                     <a href="{{ url('storage/template_import_excel/template_import_generus.xlsx') }}"
                         class="text-success d-inline-block detail-item-btn ms-3" download>
                         <i class="ri-file-excel-2-line fs-17 align-middle"></i> Template
@@ -21,16 +23,22 @@
                         <div class="row g-3">
                             <h4 class="fs-semibold text-center">Import Dokumen</h4>
 
+                            {{-- Upload File --}}
                             <div class="col-lg-6">
-                                <label for="file_import" class="form-label">Upload File Excel</label>
+                                <label for="file_import" class="form-label">
+                                    Upload File Excel <span class="text-danger">*</span>
+                                </label>
                                 <input type="file" wire:model="file_import" id="file_import" class="form-control">
                                 @error('file_import')
-                                <span class="text-danger">{{ $message }}</span>
+                                <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
+                            
+                            {{-- Penempatan Kelompok --}}
                             <div class="col-lg-6">
-                                <label for="ms_kelompok_id" class="form-label">Penempatan Kelompok</label>
+                                <label for="ms_kelompok_id" class="form-label">
+                                    Penempatan Kelompok <span class="text-danger">*</span>
+                                </label>
                                 <select id="ms_kelompok_id" wire:model="ms_kelompok_id" class="form-select">
                                     <option value="">Pilih Kelompok</option>
                                     @foreach ($select_kelompok as $item)
@@ -40,10 +48,9 @@
                                     @endforeach
                                 </select>
                                 @error('ms_kelompok_id')
-                                <footer class="text-danger mt-0">{{ $message }}</footer>
+                                <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
                             <div class="table-responsive">
                                 <table class="table table-hover nowrap align-middle">
                                     <thead class="table-light">

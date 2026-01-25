@@ -24,14 +24,14 @@
         <div class="row g-3 align-items-end">
     
             {{-- Search --}}
-            <div class="col-lg-4">
+            <div class="col-xxl-4 col-sm-8">
                 <label class="form-label">Pencarian</label>
                 <input type="text" class="form-control" placeholder="Cari nama kegiatan..."
                     wire:model.debounce.500ms="search">
             </div>
     
             {{-- Kelompok --}}
-            <div class="col-lg-2">
+            <div class="col-xxl-2 col-sm-4">
                 <label class="form-label">Kelompok</label>
                 <select class="form-select" wire:model="ms_kelompok_id">
                     <option value="">Semua Kelompok</option>
@@ -43,7 +43,7 @@
                 </select>
             </div>
             
-            <div class="col-lg-2">
+            <div class="col-xxl-2 col-sm-3">
                 <label class="form-label">Jenjang Usia</label>
                 <select class="form-select" wire:model="jenjangUsia">
                     <option value="">Semua Generus</option>
@@ -68,7 +68,7 @@
             </div>
 
             {{-- Status --}}
-            <div class="col-lg-1">
+            <div class="col-xxl-1 col-sm-3">
                 <label class="form-label">Tingkat</label>
                 <select class="form-select" wire:model="scope">
                     <option value="">Semua</option>
@@ -186,7 +186,7 @@
                             @endif
                         </td>
 
-                        <td>
+                        <td class="fw-semibold">
                             {{-- 2️⃣ Tombol CRUD --}}
                             <div class="hstack gap-2 justify-content-center">
                                 {{-- Detail --}}
@@ -204,7 +204,7 @@
                                 {{-- Hapus --}}
                                 <a href="#ModalDeleteKegiatan" data-bs-toggle="modal" class="text-danger d-inline-block" title="Hapus Kegiatan"
                                     wire:click.prevent="$emit('KegiatanDelete', {{ $item->ms_kegiatan_id }})">
-                                    <i class="ri-delete-bin-5-line fs-17 align-middle"></i> Delete
+                                    <i class="ri-delete-bin-5-line fs-17 align-middle"></i>
                                 </a>
                             </div>
                         </td>

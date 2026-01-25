@@ -4,8 +4,9 @@
             <tr>
                 <th width="40">#</th>
                 <th>Nama Generus</th>
+                <th>Telepon</th>
                 <th>Kelompok</th>
-                <th>Jenis Kelamin</th>
+                <th>L/P</th>
                 <th>Usia</th>
                 <th>Jenjang</th>
                 <th>Desa</th>
@@ -15,14 +16,18 @@
 
         <tbody>
             @forelse($listGenerus as $i => $row)
-            <tr>
+            <tr class="fw-semibold">
                 <td>{{ $loop->iteration }}</td>
 
-                <td class="fw-semibold">
+                <td>
                     {{ $row->nama_generus }}
                 </td>
 
+                <td class="">
+                    <i class="ri-whatsapp-line text-success me-1 align-bottom"></i> {{ $row->nomor_telepon }}
+                </td>
                 <td>
+                    <i class="ri-home-line text-primary me-1 align-bottom"></i>
                     {{ $row->ms_kelompok->nama_kelompok ?? '-' }}
                 </td>
 
@@ -31,6 +36,7 @@
                 </td>
 
                 <td>
+                    <i class="ri-calendar-line text-primary me-1 align-bottom"></i>
                     @if($row->usia)
                     {{ $row->usia }} Tahun
                     @else
@@ -47,7 +53,8 @@
                 </td>
 
                 <td>
-                    {{ $row->ms_kelompok->ms_desa->nama_desa ?? '-' }}
+                    <i class="ri-government-line text-primary me-1 align-bottom"></i>
+                    Desa {{ $row->ms_kelompok->ms_desa->nama_desa ?? '-' }}
                 </td>
 
                 <td class="text-center">
@@ -55,13 +62,13 @@
                         {{-- Tombol Detail --}}
                         <a href="#ModalDetailGenerus" data-bs-toggle="modal" class="text-primary d-inline-block" title="Detail Generus"
                             wire:click.prevent="$emit('GenerusDetail', {{ $row->ms_generus_id }})">
-                            <i class="ri-eye-line fs-17 align-middle"></i>
+                            <i class="ri-eye-line fs-17 align-middle"></i> Detail
                         </a>
                         
                         {{-- Tombol Edit --}}
                         <a href="#ModalEditGenerus" data-bs-toggle="modal" class="text-warning d-inline-block" title="Edit Generus"
                             wire:click.prevent="$emit('GenerusEdit', {{ $row->ms_generus_id }})">
-                            <i class="ri-mark-pen-line fs-17 align-middle"></i>
+                            <i class="ri-mark-pen-line fs-17 align-middle"></i> Edit
                         </a>
                         
                         {{-- Tombol Hapus --}}

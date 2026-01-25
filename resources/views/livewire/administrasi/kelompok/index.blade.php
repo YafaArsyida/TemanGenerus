@@ -21,23 +21,23 @@
     </div>
     <!-- Search & Filter -->
     <div class="card-body border border-dashed border-end-0 border-start-0">
-        <form>
-            <div class="row g-3">
-                <div class="col-xxl-10 col-sm-8">
-                    <div class="search-box">
-                        <input type="text" class="form-control search" wire:model.debounce.300ms="search"
-                            placeholder="Cari nama produk...">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
-                </div>
-                <div class="col-xxl-2 col-sm-4">
-                    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasKategori"
-                        aria-controls="offcanvasKategori" class="btn btn-primary w-100">
-                        <i class="ri-equalizer-fill me-1 align-bottom"></i> Master Data Desa
-                    </button>
+        <div class="row g-3">
+            <div class="col-xxl-10 col-sm-8">
+                <label class="form-label">Pencarian Kelompok</label>
+                <div class="search-box">
+                    <input type="text" class="form-control search" wire:model.debounce.300ms="search"
+                        placeholder="Cari nama kelompok...">
+                    <i class="ri-search-line search-icon"></i>
                 </div>
             </div>
-        </form>
+            <div class="col-xxl-2 col-sm-4">
+                <label class="form-label d-none d-sm-block">&nbsp;</label>
+                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDesa"
+                    aria-controls="offcanvasDesa" class="btn btn-primary w-100">
+                    <i class="ri-equalizer-fill me-1 align-bottom"></i> Master Data Desa
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Tabs kategori -->

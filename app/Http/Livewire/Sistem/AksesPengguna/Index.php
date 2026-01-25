@@ -35,6 +35,7 @@ class Index extends Component
                 'ms_pengguna_id' => $user->ms_pengguna_id,
                 'nama' => $user->nama,
                 'email' => $user->email,
+                'telepon' => $user->telepon,
                 'peran' => $user->peran,
                 'aksesPengguna' => $user->ms_desa->pluck('nama_desa')->toArray(),
             ];

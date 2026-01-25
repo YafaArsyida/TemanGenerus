@@ -6,18 +6,18 @@
                 Kelompok {{ $item->nama_kelompok }}
             </h5>
         
-            <div class="hstack gap-2">
+            <div class="hstack gap-2 fw-semibold">
         
                 {{-- Tombol Detail --}}
                 <a href="#ModalDetailKelompok" data-bs-toggle="modal" class="text-primary d-inline-block"
                     title="Detail Kelompok" wire:click.prevent="$emit('KelompokDetail', {{ $item->ms_kelompok_id }})">
-                    <i class="ri-eye-line fs-17 align-middle"></i>
+                    <i class="ri-eye-line fs-17 align-middle me-1"></i>Detail
                 </a>
         
                 {{-- Tombol Edit --}}
                 <a href="#ModalEditKelompok" data-bs-toggle="modal" class="text-warning d-inline-block" title="Edit Kelompok"
                     wire:click.prevent="$emit('KelompokEdit', {{ $item->ms_kelompok_id }})">
-                    <i class="ri-mark-pen-line fs-17 align-middle"></i>
+                    <i class="ri-mark-pen-line fs-17 align-middle me-1"></i>Edit
                 </a>
         
                 {{-- Tombol Hapus --}}

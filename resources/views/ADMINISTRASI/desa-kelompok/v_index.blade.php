@@ -28,11 +28,11 @@
                 @livewire('administrasi.kelompok.delete')
 
                 <!-- Offcanvas wrapper statis -->
-                <div style="width: 500px;" class="offcanvas offcanvas-end" id="offcanvasKategori" data-bs-scroll="true"
-                    data-bs-backdrop="false" aria-labelledby="offcanvasKategoriLabel">
+                <div style="width: 500px;" class="offcanvas offcanvas-end" id="offcanvasDesa" data-bs-scroll="true"
+                    data-bs-backdrop="false" aria-labelledby="offcanvasDesaLabel">
         
                     <div class="offcanvas-header border-bottom">
-                        <h5 class="offcanvas-title" id="offcanvasKategoriLabel">Data Desa</h5>
+                        <h5 class="offcanvas-title" id="offcanvasDesaLabel">Data Desa</h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
                     </div>
         

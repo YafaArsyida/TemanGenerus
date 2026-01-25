@@ -11,12 +11,14 @@ use Livewire\Component;
 class Create extends Component
 {
     public $nama, $email, $password, $peran;
+    public $telepon;
     public $ms_desa_id = [];
 
     protected function rules()
     {
         return [
             'nama' => 'required|string|max:255',
+            'telepon'   => 'nullable|string|max:20',
             'email' => 'required|unique:ms_pengguna,email',
             'password' => 'required|string|min:6',
             'peran' => 'required|string|max:50',
@@ -67,6 +69,7 @@ class Create extends Component
     public function resetInput()
     {
         $this->nama = '';
+        $this->telepon = '';
         $this->email = '';
         $this->password = '';
         $this->peran = '';

@@ -1,15 +1,16 @@
 <div class="">
     <div class="row g-3 mb-3">
         <div class="col-xxl-8 col-sm-6">
+            <label class="form-label">Pencarian Desa</label>
             <div class="search-box">
                 <input type="text" class="form-control search" wire:model.debounce.300ms="search"
-                    placeholder="cari nama, deskripsi atau lainnya...">
+                    placeholder="Cari nama desa, deskripsi, atau lainnya...">
                 <i class="ri-search-line search-icon"></i>
             </div>
         </div>
         <div class="col-xxl-4 col-sm-6">
-            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-                data-bs-target="#ModalDesaCreate"
+            <label class="form-label d-none d-sm-block">&nbsp;</label>
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#ModalDesaCreate"
                 wire:click="$emit('DesaCreate')">
                 <i class="ri-add-fill me-1 align-bottom"></i> Desa
             </button>

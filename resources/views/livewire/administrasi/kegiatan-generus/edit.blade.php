@@ -4,7 +4,7 @@
 
             <div class="modal-header bg-light p-3">
                 <h5 class="modal-title fw-bold">
-                    <i class="ri-add-circle-line me-1 text-success"></i> Edit Kegiatan
+                    <i class="ri-edit-2-line text-warning me-1"></i> Edit Kegiatan Generus
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>

@@ -14,6 +14,7 @@ class Edit extends Component
 
     public $ms_kelompok_id;
     public $nama_generus;
+    public $nomor_telepon;
     public $tempat_lahir;
     public $tanggal_lahir;
     public $jenis_kelamin;
@@ -61,6 +62,7 @@ class Edit extends Component
         // Isi form
         $this->ms_kelompok_id = $data->ms_kelompok_id;
         $this->nama_generus   = $data->nama_generus;
+        $this->nomor_telepon   = $data->nomor_telepon;
         $this->tempat_lahir   = $data->tempat_lahir;
         $this->tanggal_lahir  = $data->tanggal_lahir;
         $this->jenis_kelamin  = $data->jenis_kelamin;
@@ -81,6 +83,7 @@ class Edit extends Component
     protected $rules = [
         'ms_kelompok_id' => 'required|exists:ms_kelompok,ms_kelompok_id',
         'nama_generus'   => 'required|string|min:3|max:150',
+        'nomor_telepon'   => 'nullable|string|max:20',
         'tempat_lahir'   => 'nullable|string|max:100',
         'tanggal_lahir'  => 'nullable|date',
         'jenis_kelamin'  => 'required|in:laki-laki,perempuan',
@@ -142,6 +145,7 @@ class Edit extends Component
     {
         $this->ms_kelompok_id = '';
         $this->nama_generus   = '';
+        $this->nomor_telepon   = '';
         $this->tempat_lahir   = '';
         $this->tanggal_lahir  = '';
         $this->jenis_kelamin  = '';

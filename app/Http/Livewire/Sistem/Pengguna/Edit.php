@@ -11,7 +11,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     public $ms_pengguna_id;
-    public $nama, $email, $peran, $password;
+    public $nama, $telepon, $email, $peran, $password;
     public $ms_desa_id = []; // Menyimpan jenjang yang dipilih
     public $selectedDesa = []; // Menyimpan jenjang yang sudah dipilih oleh pengguna (untuk checkbox yang tercentang)
 
@@ -25,6 +25,7 @@ class Edit extends Component
         // Set properti dengan data pengguna
         $this->ms_pengguna_id = $pengguna->ms_pengguna_id;
         $this->nama = $pengguna->nama;
+        $this->telepon = $pengguna->telepon;
         $this->email = $pengguna->email;
         $this->peran = $pengguna->peran;
 
@@ -43,6 +44,7 @@ class Edit extends Component
     {
         $this->validate([
             'nama' => 'required|string|max:100',
+            'telepon'   => 'nullable|string|max:20',
             'email' => 'required|max:25',
             'peran' => 'required|string|max:50',
             'password' => 'nullable|min:6', // Validasi password baru (opsional)
@@ -55,6 +57,7 @@ class Edit extends Component
         // Update data pengguna
         $pengguna->update([
             'nama' => $this->nama,
+            'telepon' => $this->telepon,
             'email' => $this->email,
             'peran' => $this->peran,
         ]);
@@ -93,6 +96,7 @@ class Edit extends Component
     {
         $this->ms_pengguna_id = null;
         $this->nama = '';
+        $this->telepon = '';
         $this->email = '';
         $this->peran = '';
         $this->password = ''; // Reset password

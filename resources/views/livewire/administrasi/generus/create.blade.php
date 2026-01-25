@@ -4,7 +4,7 @@
 
             <div class="modal-header bg-light p-3">
                 <h5 class="modal-title fw-bold">
-                    <i class="ri-add-circle-line me-1 text-success"></i> Tambah Data Generus
+                    <i class="ri-add-circle-line me-1 text-success"></i>Tambah Data Generus
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -14,26 +14,41 @@
                     <div class="row g-3">
 
                         {{-- Kelompok --}}
-                        <div class="col-lg-6">
-                            <label class="form-label">Kelompok <span class="text-danger">*</span></label>
+                        <div class="col-lg-2">
+                            <label class="form-label">
+                                Kelompok <span class="text-danger">*</span>
+                            </label>
                             <select class="form-select" wire:model.defer="ms_kelompok_id">
                                 <option value="">-- Pilih Kelompok --</option>
                                 @foreach($listKelompok as $k)
-                                <option value="{{ $k->ms_kelompok_id }}">
-                                    {{ $k->nama_kelompok }}
-                                    @if($k->ms_desa) - {{ $k->ms_desa->nama_desa }} @endif
-                                </option>
+                                <option value="{{ $k->ms_kelompok_id }}">{{ $k->nama_kelompok }}</option>
                                 @endforeach
                             </select>
-                            @error('ms_kelompok_id') <small class="text-danger">{{ $message }}</small> @enderror
+                            @error('ms_kelompok_id')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
-
+                        
                         {{-- Nama --}}
                         <div class="col-lg-6">
-                            <label class="form-label">Nama Generus <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" wire:model.defer="nama_generus"
-                                placeholder="Masukkan nama generus">
-                            @error('nama_generus') <small class="text-danger">{{ $message }}</small> @enderror
+                            <label class="form-label">
+                                Nama Generus <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" wire:model.defer="nama_generus" placeholder="Masukkan nama generus">
+                            @error('nama_generus')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        
+                        {{-- Nomor Telepon --}}
+                        <div class="col-lg-4">
+                            <label class="form-label">
+                                Nomor Telepon
+                            </label>
+                            <input type="text" class="form-control" wire:model.defer="nomor_telepon" placeholder="Contoh: 08xxxxxxxxxx">
+                            @error('nomor_telepon')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         {{-- Tempat Lahir --}}

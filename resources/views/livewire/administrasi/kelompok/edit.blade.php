@@ -4,7 +4,7 @@
 
             <div class="modal-header bg-light p-3">
                 <h5 class="modal-title fw-bold" id="ModalEditDesaLabel">
-                    <i class="ri-edit-2-line me-1"></i> Edit Data Kelompok
+                    <i class="ri-edit-2-line me-1 text-warning"></i> Edit Data Kelompok
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>

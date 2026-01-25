@@ -15,9 +15,10 @@
     <div class="card-body border border-dashed border-end-0 border-start-0">
         <div class="row g-3">
             <div class="col-xxl-12 col-sm-12">
+                <label class="form-label">Pencarian Pengguna</label>
                 <div class="search-box">
                     <input type="text" class="form-control search" wire:model.debounce.300ms="search"
-                        placeholder="cari nama, deskripsi atau lainnya...">
+                        placeholder="Cari nama, email, telepon, atau lainnya...">
                     <i class="ri-search-line search-icon"></i>
                 </div>
             </div>
@@ -44,6 +45,7 @@
                             <th class="text-uppercase" width="50px">hapus</th>
                             <th class="text-uppercase">petugas</th>
                             <th class="text-uppercase">username</th>
+                            <th class="text-uppercase">telepon</th> {{-- NEW --}}
                             <th class="text-uppercase">peran</th>
                             <th class="text-uppercase">akses desa</th>
                             <th class="text-uppercase">aksi</th>
@@ -51,19 +53,19 @@
                     </thead>
                     <tbody>
                         @forelse($pengguna as $index => $user)
-                        <tr>
+                        <tr class="fw-semibold">
                             <td>{{ $index + 1 }}</td>
                             <td>
                                 <!-- Hapus Pengguna -->
-                                <a href="#ModalDeletePengguna" data-bs-toggle="modal"
-                                    class="text-danger d-inline-block remove-item-btn"
-                                    wire:click.prevent="$emit('deletePengguna', {{ $user['ms_pengguna_id'] }})"
-                                    data-bs-trigger="hover" data-bs-placement="top" title="Hapus Pengguna">
+                                <a href="#ModalDeletePengguna" data-bs-toggle="modal" class="text-danger d-inline-block remove-item-btn"
+                                    wire:click.prevent="$emit('deletePengguna', {{ $user['ms_pengguna_id'] }})" data-bs-trigger="hover"
+                                    data-bs-placement="top" title="Hapus Pengguna">
                                     <i class="ri-delete-bin-5-fill fs-16"></i>
                                 </a>
                             </td>
                             <td style="white-space: nowrap;">{{ $user['nama'] }}</td>
                             <td>{{ $user['email'] }}</td>
+                            <td>{{ $user['telepon'] ?? '-' }}</td> {{-- NEW --}}
                             <td class="text-uppercase text-secondary">{{ $user['peran'] }}</td>
                             <td style="white-space: nowrap;">{{ implode(', ', $user['aksesPengguna']) }}</td>
                             <td style="white-space: nowrap;">

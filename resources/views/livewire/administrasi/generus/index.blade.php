@@ -13,8 +13,8 @@
                         <i class="ri-add-line align-bottom me-1"></i> Tambah Data Generus
                     </button>
                     <button data-bs-toggle="modal" data-bs-target="#ModalImportGenerus"
-                        wire:click.prevent="$emit('showImportGenerus', {{ $selectedDesa }})" class="btn btn-secondary"><i
-                            class="ri-contacts-line me-1 align-bottom"></i> Import Generus
+                        wire:click.prevent="$emit('showImportGenerus', {{ $selectedDesa }})" class="btn btn-secondary">
+                        <i class="ri-database-2-line me-1 align-bottom"></i> Import Generus
                     </button>
 
                     {{-- <button type="button" class="btn btn-soft-danger">
