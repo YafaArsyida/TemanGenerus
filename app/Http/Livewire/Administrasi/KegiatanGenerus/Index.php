@@ -20,7 +20,8 @@ class Index extends Component
     public $search;
     public $status;
     public $scope;
-    
+    public $tipeKegiatan = ''; // rutin | sekali
+
     public $ms_kelompok_id;
     public $jenjangUsia = '';
 
@@ -129,6 +130,10 @@ class Index extends Component
             $query->where('nama_kegiatan', 'like', "%{$this->search}%");
         }
 
+        if ($this->tipeKegiatan) {
+            $query->where('tipe_kegiatan', $this->tipeKegiatan);
+        }
+
         if ($this->status) {
             $query->where('status', $this->status);
         }
@@ -142,11 +147,21 @@ class Index extends Component
             $query->where('jenjang', $this->jenjangUsia);
         }
 
+        // FILTER PERIODE
         if ($this->startDate && $this->endDate) {
-            $query->whereBetween('tanggal', [$this->startDate, $this->endDate]);
+            $query->where(function ($q) {
+                $q->where('tipe_kegiatan', 'rutin') // selalu tampil
+                    ->orWhereBetween('tanggal', [$this->startDate, $this->endDate]);
+            });
         }
 
-        return $query->orderBy('tanggal', 'asc');
+        return $query->orderByRaw("
+            CASE 
+                WHEN tipe_kegiatan = 'rutin' THEN 0 
+                ELSE 1 
+            END,
+            tanggal ASC
+        ");
     }
 
     public function render()

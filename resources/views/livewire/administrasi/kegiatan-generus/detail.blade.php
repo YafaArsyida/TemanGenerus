@@ -21,6 +21,11 @@
 
                         {{-- TITLE --}}
                         <h4 class="fw-bold mb-1 text-truncate">
+                            @if($kegiatan->tipe_kegiatan === 'rutin')
+                            <i class="ri-repeat-line"></i> Rutin
+                            @else
+                            <i class="ri-calendar-event-line"></i>
+                            @endif
                             {{ $kegiatan->nama_kegiatan }}
                         </h4>
 
@@ -70,15 +75,21 @@
                         {{-- DETAIL GRID --}}
                         <div class="row g-3">
 
-                            {{-- Tanggal --}}
+                            {{-- Tanggal / Hari Rutin --}}
                             <div class="col-lg-4 col-sm-6">
                                 <div class="p-2 border border-dashed rounded">
                                     <p class="text-muted mb-1">Tanggal</p>
                                     <h6 class="mb-0">
-                                        {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia(
-                                        $kegiatan->tanggal,
-                                        'd F Y'
-                                        ) }}
+                                        @if($kegiatan->tipe_kegiatan === 'sekali')
+                                        {{ $kegiatan->tanggal
+                                        ? \App\Http\Controllers\HelperController::formatTanggalIndonesia($kegiatan->tanggal, 'd F Y')
+                                        : '-'
+                                        }}
+                                        @else
+                                            @if(!empty($kegiatan->hari_rutin_label))
+                                            Rutin : {{ $kegiatan->hari_rutin_label }}
+                                            @endif
+                                        @endif
                                     </h6>
                                 </div>
                             </div>

@@ -79,6 +79,29 @@
                         <span>Event Kegiatan</span>
                     </a>
                 </li>
+                <li class="menu-title"><span data-key="t-menu">Laporan</span></li>
+                {{-- Kegiatan --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
+                        href="{{ route('administrasi.kegiatan-generus') }}">
+                        <i class="mdi mdi-calendar-check-outline"></i>
+                        <span>Laporan Kegiatan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
+                        href="{{ route('administrasi.kegiatan-generus') }}">
+                        <i class="mdi mdi-calendar-check-outline"></i>
+                        <span>Laporan Kehadiran</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
+                        href="{{ route('administrasi.kegiatan-generus') }}">
+                        <i class="mdi mdi-calendar-check-outline"></i>
+                        <span>Rekapitulasi Bulanan</span>
+                    </a>
+                </li>
                 <li class="menu-title"><span data-key="t-menu">sistem</span></li>
                 <!-- Akses Petugas -->
                 <li class="nav-item">

@@ -28,8 +28,40 @@ class Kegiatan extends Model
         'tanggal',
         'waktu',
         'status',
+
+        'tipe_kegiatan',     // ENUM('rutin','sekali')
+        'hari_rutin',
+        
         'deskripsi',
     ];
+
+    protected $casts = [
+        'hari_rutin' => 'array',
+    ];
+
+    public function getHariLabelAttribute()
+    {
+        if ($this->tipe_kegiatan !== 'rutin' || empty($this->hari_rutin)) {
+            return null;
+        }
+
+        $map = [
+            'senin'  => 'Senin',
+            'selasa' => 'Selasa',
+            'rabu'   => 'Rabu',
+            'kamis'  => 'Kamis',
+            'jumat'  => 'Jumat',
+            'sabtu'  => 'Sabtu',
+            'minggu' => 'Minggu',
+        ];
+
+        $labels = collect($this->hari_rutin)
+            ->map(fn($h) => $map[$h] ?? ucfirst($h))
+            ->implode(', ');
+
+        return $labels;
+    }
+
     protected static function booted()
     {
         static::creating(function ($kegiatan) {

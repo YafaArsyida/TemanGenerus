@@ -63,13 +63,39 @@
                             </select>
                             @error('jenjang') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
-
-                        {{-- Tanggal --}}
-                        <div class="col-lg-4">
-                            <label class="form-label">Tanggal <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" wire:model.defer="tanggal">
-                            @error('tanggal') <small class="text-danger">{{ $message }}</small> @enderror
+                        {{-- Tipe Kegiatan --}}
+                        <div class="col-lg-12">
+                            <label class="form-label">Tipe Kegiatan <span class="text-danger">*</span></label>
+                        
+                            <div class="d-flex gap-3">
+                                <label class="border rounded p-3 flex-fill cursor-pointer">
+                                    <input type="radio" wire:model="tipe_kegiatan" value="sekali" class="form-check-input me-2">
+                                    <strong>Sekali</strong>
+                                    <div class="text-muted fs-12">
+                                        Kegiatan satu kali di tanggal tertentu
+                                    </div>
+                                </label>
+                        
+                                <label class="border rounded p-3 flex-fill cursor-pointer">
+                                    <input type="radio" wire:model="tipe_kegiatan" value="rutin" class="form-check-input me-2">
+                                    <strong>Rutin</strong>
+                                    <div class="text-muted fs-12">
+                                        Kegiatan berulang di hari tertentu
+                                    </div>
+                                </label>
+                            </div>
+                        
+                            @error('tipe_kegiatan') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
+
+                        @if($tipe_kegiatan === 'rutin')
+                        <div class="col-12">
+                            <div class="alert alert-info py-2 fs-13">
+                                📌 Lokasi kegiatan bisa dikonfirmasi ulang saat presensi
+                                jika terjadi rotasi tempat.
+                            </div>
+                        </div>
+                        @endif
 
                         {{-- Waktu --}}
                         <div class="col-lg-2">
@@ -77,6 +103,37 @@
                             <input type="time" step="1" class="form-control" wire:model.defer="waktu">
                             @error('waktu') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
+
+                        {{-- Tanggal --}}
+                        @if($tipe_kegiatan === 'sekali')
+                        <div class="col-lg-4">
+                            <label class="form-label">Tanggal <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" wire:model.defer="tanggal">
+                            @error('tanggal') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                        @endif
+
+                        @if($tipe_kegiatan === 'rutin')
+                        <div class="col-lg-10">
+                            <label class="form-label">Hari Rutin <span class="text-danger">*</span></label>
+                        
+                            <div class="row g-3 mx-1">
+                                @foreach($listHari as $key => $label)
+                                <div class="col-6 col-md-3">
+                                    <div class="form-check rounded p-2">
+                                        <input class="form-check-input" type="checkbox" wire:model="hari_rutin" value="{{ $key }}"
+                                            id="hari_{{ $key }}">
+                                        <label class="form-check-label" for="hari_{{ $key }}">
+                                            {{ $label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        
+                            @error('hari_rutin') <small class="text-danger">{{ $message }}</small> @enderror
+                        </div>
+                        @endif
 
                         @if($scope && $lokasi_default)
                         <div class="col-lg-12">

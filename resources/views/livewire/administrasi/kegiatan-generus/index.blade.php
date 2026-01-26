@@ -24,10 +24,19 @@
         <div class="row g-3 align-items-end">
     
             {{-- Search --}}
-            <div class="col-xxl-4 col-sm-8">
+            <div class="col-xxl-2 col-sm-4">
                 <label class="form-label">Pencarian</label>
                 <input type="text" class="form-control" placeholder="Cari nama kegiatan..."
                     wire:model.debounce.500ms="search">
+            </div>
+            {{-- Tipe Kegiatan --}}
+            <div class="col-xxl-2 col-sm-4">
+                <label class="form-label">Tipe</label>
+                <select class="form-select" wire:model="tipeKegiatan">
+                    <option value="">Semua</option>
+                    <option value="rutin">Rutin</option>
+                    <option value="sekali">Sekali</option>
+                </select>
             </div>
     
             {{-- Kelompok --}}
@@ -104,6 +113,7 @@
                     <tr>
                         <th style="width: 50px">#</th>
                         <th>Tanggal & Waktu</th>
+                        <th>Tipe</th>
                         <th>Kegiatan</th>
                         <th>Peserta</th>
                         <th>Tingkat</th>
@@ -118,10 +128,23 @@
                         <td>{{ $listKegiatan->firstItem() + $index }}</td>
                         {{-- Tanggal & Waktu --}}
                         <td>
-                            {{ $item->tanggal ? \App\Http\Controllers\HelperController::formatTanggalIndonesia($item->tanggal, 'd F Y') : '-' }}
-                            <div class="">{{ $item->waktu }}</div>
+                            @if($item->tipe_kegiatan === 'rutin')
+                            {{ $item->hari_label ?: 'Jadwal Mingguan' }}
+                            <div>{{ $item->waktu }}</div>
+                            @else
+                            {{ $item->tanggal
+                            ? \App\Http\Controllers\HelperController::formatTanggalIndonesia($item->tanggal, 'd F Y')
+                            : '-' }}
+                            <div>{{ $item->waktu }}</div>
+                            @endif
                         </td>
-                        {{-- Nama & Deskripsi --}}
+                        <td class="text-primary">
+                            @if($item->tipe_kegiatan === 'rutin')
+                            <i class="ri-repeat-line"></i> Kegiatan Rutin
+                            @else
+                            <i class="ri-calendar-event-line"></i> Event Sekali
+                            @endif
+                        </td>
                         <td>
                             <strong>{{ $item->nama_kegiatan }}</strong>
                         </td>
@@ -165,13 +188,13 @@
                         <td>
                             @if($item->scope === 'daerah')
                             <strong>Kegiatan Daerah</strong>
-                            <div class="text-bold">Solo Selatan</div>
+                            {{-- <div class="text-bold">Solo Selatan</div> --}}
                             @elseif($item->scope === 'desa')
                             <strong>Kegiatan Desa</strong>
-                            <div class="text-bold">{{ $item->ms_desa->nama_desa ?? '-' }}</div>
+                            {{-- <div class="text-bold">{{ $item->ms_desa->nama_desa ?? '-' }}</div> --}}
                             @elseif($item->scope === 'kelompok')
                             <strong>Kegiatan Kelompok</strong>
-                            <div class="text-bold">{{ $item->ms_kelompok->nama_kelompok ?? '-' }}</div>
+                            {{-- <div class="text-bold">{{ $item->ms_kelompok->nama_kelompok ?? '-' }}</div> --}}
                             @endif
                         </td>
                         <td>

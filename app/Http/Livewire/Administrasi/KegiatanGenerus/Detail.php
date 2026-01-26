@@ -28,6 +28,24 @@ class Detail extends Component
             return;
         }
 
+        // Siapkan label hari rutin
+        if ($this->kegiatan->tipe_kegiatan === 'rutin' && is_array($this->kegiatan->hari_rutin)) {
+            $listHari = [
+                'senin'  => 'Senin',
+                'selasa' => 'Selasa',
+                'rabu'   => 'Rabu',
+                'kamis'  => 'Kamis',
+                'jumat'  => 'Jumat',
+                'sabtu'  => 'Sabtu',
+                'minggu' => 'Minggu',
+            ];
+            $this->kegiatan->hari_rutin_label = collect($this->kegiatan->hari_rutin)
+                ->map(fn($h) => $listHari[$h] ?? $h)
+                ->implode(', ');
+        } else {
+            $this->kegiatan->hari_rutin_label = null;
+        }
+
         $this->dispatchBrowserEvent('alertify-success', [
             'message' => 'Detail kegiatan ditampilkan'
         ]);

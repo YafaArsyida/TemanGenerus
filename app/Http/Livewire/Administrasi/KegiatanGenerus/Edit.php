@@ -32,6 +32,19 @@ class Edit extends Component
     public $alamat;
     public $peta;
 
+    public $tipe_kegiatan = 'sekali'; // default
+    public $hari_rutin = []; // array: ['senin','rabu',...]
+
+    public $listHari = [
+        'senin'  => 'Senin',
+        'selasa' => 'Selasa',
+        'rabu'   => 'Rabu',
+        'kamis'  => 'Kamis',
+        'jumat'  => 'Jumat',
+        'sabtu'  => 'Sabtu',
+        'minggu' => 'Minggu',
+    ];
+
     protected $listeners = [
         'KegiatanEdit' => 'loadData'
     ];
@@ -58,9 +71,15 @@ class Edit extends Component
 
         $this->nama_kegiatan  = $kegiatan->nama_kegiatan;
         $this->jenjang        = $kegiatan->jenjang;
-        $this->tanggal        = $kegiatan->tanggal;
-        $this->waktu          = $kegiatan->waktu;
-        $this->deskripsi      = $kegiatan->deskripsi;
+
+        $this->tipe_kegiatan = $kegiatan->tipe_kegiatan ?? 'sekali';
+        $this->tanggal = $kegiatan->tanggal;
+        $this->waktu = $kegiatan->waktu;
+        $this->deskripsi = $kegiatan->deskripsi;
+
+        $this->hari_rutin = $kegiatan->tipe_kegiatan === 'rutin'
+            ? ($kegiatan->hari_rutin ?? [])
+            : [];
 
         // Deteksi lokasi custom
         if ($kegiatan->tempat || $kegiatan->alamat || $kegiatan->peta) {
@@ -75,24 +94,105 @@ class Edit extends Component
         }
     }
 
+    public function updatedTipeKegiatan($value)
+    {
+        if ($value === 'rutin') {
+            $this->tanggal = null;      // tanggal tidak dipakai
+        }
+
+        if ($value === 'sekali') {
+            $this->hari_rutin = [];     // hapus hari_rutin
+        }
+    }
+
+
     /* =========================
      * RULES
      * ========================= */
     protected function rules()
     {
-        return [
+        $rules = [
             'scope'          => 'required|in:daerah,desa,kelompok',
-            'ms_kelompok_id' => 'nullable|exists:ms_kelompok,ms_kelompok_id',
             'nama_kegiatan'  => 'required|string|min:3|max:150',
+            'tipe_kegiatan'  => 'required|in:rutin,sekali',
             'jenjang'        => 'nullable|in:semua,caberawit,remaja,gp,pra_remaja,mandiri',
+            'waktu'          => 'required|date_format:H:i:s',
             'tempat'         => 'nullable|string|max:150',
             'alamat'         => 'nullable|string|max:255',
             'peta'           => 'nullable|url',
-            'tanggal'        => 'required|date',
-            'waktu'          => 'required|date_format:H:i:s',
             'deskripsi'      => 'nullable|string|max:500',
         ];
+
+        if ($this->scope === 'kelompok') {
+            $rules['ms_kelompok_id'] = 'required|exists:ms_kelompok,ms_kelompok_id';
+        } else {
+            $rules['ms_kelompok_id'] = 'nullable';
+        }
+
+        // 🔹 Kegiatan sekali → wajib tanggal
+        if ($this->tipe_kegiatan === 'sekali') {
+            $rules['tanggal'] = 'required|date';
+        } else {
+            $rules['tanggal'] = 'nullable';
+        }
+
+        // 🔹 Kegiatan rutin → wajib hari_rutin (array)
+        if ($this->tipe_kegiatan === 'rutin') {
+            $rules['hari_rutin'] = 'required|array|min:1';
+            $rules['hari_rutin.*'] = 'in:senin,selasa,rabu,kamis,jumat,sabtu,minggu';
+        } else {
+            $rules['hari_rutin'] = 'nullable';
+        }
+
+        if ($this->use_custom_lokasi) {
+            $rules['tempat'] = 'required|string|max:150';
+            $rules['alamat'] = 'nullable|string|max:255';
+            $rules['peta']   = 'nullable|url';
+        } else {
+            $rules['tempat'] = 'nullable';
+            $rules['alamat'] = 'nullable';
+            $rules['peta']   = 'nullable';
+        }
+
+        return $rules;
     }
+
+    protected $messages = [
+        'scope.required' => 'Pilih tingkat kegiatan terlebih dahulu.',
+        'scope.in'       => 'Tingkat kegiatan tidak valid.',
+
+        'ms_kelompok_id.required' => 'Pilih kelompok terlebih dahulu.',
+        'ms_kelompok_id.exists'   => 'Kelompok yang dipilih tidak valid.',
+
+        'nama_kegiatan.required'  => 'Nama kegiatan wajib diisi.',
+        'nama_kegiatan.min'       => 'Nama kegiatan minimal 3 karakter.',
+        'nama_kegiatan.max'       => 'Nama kegiatan maksimal 150 karakter.',
+
+        'tipe_kegiatan.required'  => 'Pilih tipe kegiatan.',
+        'tipe_kegiatan.in'        => 'Tipe kegiatan tidak valid.',
+
+        'jenjang.in'              => 'Jenjang tidak valid.',
+
+        'tanggal.required'       => 'Tanggal wajib diisi untuk kegiatan sekali.',
+        'tanggal.date'           => 'Format tanggal tidak valid.',
+
+        'hari_rutin.required'    => 'Pilih minimal satu hari untuk kegiatan rutin.',
+        'hari_rutin.array'       => 'Format hari rutin tidak valid.',
+        'hari_rutin.min'         => 'Pilih minimal satu hari kegiatan.',
+        'hari_rutin.*.in'        => 'Hari rutin tidak valid.',
+
+        'waktu.required'         => 'Waktu kegiatan wajib diisi.',
+        'waktu.date_format'      => 'Format waktu harus HH:MM:SS.',
+
+        'tempat.required'        => 'Tempat wajib diisi jika lokasi berbeda.',
+        'tempat.max'             => 'Nama tempat maksimal 150 karakter.',
+
+        'alamat.max'             => 'Alamat maksimal 255 karakter.',
+
+        'peta.url'               => 'Format URL peta tidak valid.',
+
+        'deskripsi.max'          => 'Deskripsi maksimal 500 karakter.',
+    ];
 
     public function updatedScope($value)
     {
@@ -183,8 +283,14 @@ class Edit extends Component
                 'alamat' => $this->use_custom_lokasi ? $this->alamat : null,
                 'peta'   => $this->use_custom_lokasi ? $this->peta : null,
 
-                'tanggal' => $this->tanggal,
+                'tanggal' => $this->tipe_kegiatan === 'sekali' ? $this->tanggal : null,
                 'waktu' => $this->waktu,
+
+                'tipe_kegiatan' => $this->tipe_kegiatan,
+                'hari_rutin' => $this->tipe_kegiatan === 'rutin'
+                    ? json_encode($this->hari_rutin)
+                    : null,
+
                 'deskripsi' => $this->deskripsi,
             ]);
 
