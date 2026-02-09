@@ -134,4 +134,77 @@ class Kegiatan extends Model
             'peta'   => null,
         ];
     }
+
+    public function ms_presensi()
+    {
+        return $this->hasMany(PresensiKegiatan::class, 'ms_kegiatan_id');
+    }
+
+    public function targetPeserta()
+    {
+        $query = Generus::query();
+
+        // Filter scope
+        if ($this->scope === 'desa' && $this->ms_desa_id) {
+            $query->whereHas('ms_kelompok', function ($q) {
+                $q->where('ms_desa_id', $this->ms_desa_id);
+            });
+        }
+
+        if ($this->scope === 'kelompok' && $this->ms_kelompok_id) {
+            $query->where('ms_kelompok_id', $this->ms_kelompok_id);
+        }
+
+        // Filter jenjang usia
+        if ($this->jenjang && $this->jenjang !== 'semua') {
+            [$min, $max] = Generus::jenjangUsiaMap()[$this->jenjang] ?? [0, 100];
+
+            $query->whereRaw("
+                TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE())
+                BETWEEN ? AND ?
+            ", [$min, $max]);
+        }
+
+        return $query->count();
+    }
+    public function totalHadir()
+    {
+        return $this->ms_presensi()
+            ->where('status_hadir', 'hadir')
+            ->count();
+    }
+
+    public function totalIzin()
+    {
+        return $this->ms_presensi()
+            ->where('status_hadir', 'izin')
+            ->count();
+    }
+
+    // public function totalAlfa()
+    // {
+    //     return $this->ms_presensi()
+    //         ->where('status_hadir', 'alfa')
+    //         ->count();
+    // }
+    public function totalAlfa()
+    {
+        $target = $this->targetPeserta();
+        $hadir  = $this->totalHadir();
+        $izin   = $this->totalIzin();
+
+        $alfa = $target - $hadir - $izin;
+
+        return $alfa < 0 ? 0 : $alfa; // jaga-jaga biar gak minus
+    }
+
+    public function presentaseHadir()
+    {
+        $target = $this->targetPeserta();
+        $hadir  = $this->totalHadir();
+
+        if ($target == 0) return 0;
+
+        return round(($hadir / $target) * 100, 1);
+    }
 }

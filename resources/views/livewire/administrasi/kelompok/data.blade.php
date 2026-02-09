@@ -19,7 +19,7 @@
                     wire:click.prevent="$emit('KelompokEdit', {{ $item->ms_kelompok_id }})">
                     <i class="ri-mark-pen-line fs-17 align-middle me-1"></i>Edit
                 </a>
-        
+
                 {{-- Tombol Hapus --}}
                 <a href="#ModalDeleteKelompok" data-bs-toggle="modal" class="text-danger d-inline-block" title="Hapus Kelompok"
                     wire:click.prevent="$emit('KelompokDelete', {{ $item->ms_kelompok_id }})">

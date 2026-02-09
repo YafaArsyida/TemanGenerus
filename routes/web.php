@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesaKelompok;
 use App\Http\Controllers\GenerasiPenerus;
 use App\Http\Controllers\KegiatanGenerus;
+use App\Http\Controllers\LaporanKegiatanEvent;
+use App\Http\Controllers\LaporanKegiatanRutin;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PresensiKegiatan;
 use App\Http\Controllers\PresensiKegiatanKartu;
@@ -60,7 +62,10 @@ Route::middleware(['auth', 'peran:superadmin,administrasi'])->group(function () 
     Route::get('/administrasi/generasi-penerus',  [GenerasiPenerus::class, 'index'])->name('administrasi.generasi-penerus');
     Route::get('/administrasi/kegiatan-generus',  [KegiatanGenerus::class, 'index'])->name('administrasi.kegiatan-generus');
 
-    // operasional
+    // laporan
+    Route::get('/laporan/kegiatan-rutin',  [LaporanKegiatanRutin::class, 'index'])->name('laporan.kegiatan-rutin');
+    Route::get('/laporan/kegiatan-event',  [LaporanKegiatanEvent::class, 'index'])->name('laporan.kegiatan-event');
+
 
     // sistem
     Route::get('/sistem/akses-pengguna',  [AksesPengguna::class, 'index'])->name('sistem.akses-pengguna');

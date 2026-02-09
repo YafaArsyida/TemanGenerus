@@ -80,19 +80,18 @@
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Laporan</span></li>
-                {{-- Kegiatan --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
-                        href="{{ route('administrasi.kegiatan-generus') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('lapooran.kegiatan-rutin') ? 'active' : '' }}"
+                        href="{{ route('laporan.kegiatan-rutin') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
-                        <span>Laporan Kegiatan</span>
+                        <span>Laporan Kegiatan Rutin</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
-                        href="{{ route('administrasi.kegiatan-generus') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.kegiatan-event') ? 'active' : '' }}"
+                        href="{{ route('laporan.kegiatan-event') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
-                        <span>Laporan Kehadiran</span>
+                        <span>Laporan Kehadiran Event</span>
                     </a>
                 </li>
                 <li class="nav-item">

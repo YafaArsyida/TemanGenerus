@@ -55,7 +55,7 @@
                 <select class="form-select" wire:model="jenjangUsia">
                     <option value="">Semua Jenjang Usia</option>
                     <option value="caberawit">Caberawit (&lt; 12 Tahun)</option>
-                    <option value="remaja">Remaja (12 – 25 Tahun)</option>
+                    <option value="remaja">Remaja (12 – 30 Tahun)</option>
                     <option value="gp">GP (12 – 23 Tahun)</option>
                     <option value="pra_nikah">Pra Nikah (19 – 23 Tahun)</option>
                     <option value="mandiri">Mandiri (&gt; 23 Tahun)</option>

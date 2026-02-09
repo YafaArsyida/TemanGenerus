@@ -138,7 +138,7 @@
                 </div>
     
                 {{-- TABEL --}}
-                <div class="table-responsive" style="max-height: 420px;">
+                <div class="table-responsive" style="max-height: 1000px;">
                     <table class="table table-striped table-bordered align-middle mb-0">
                         <thead class="table-light sticky-top">
                             <tr>
@@ -244,7 +244,7 @@
                     </div>
                 </div>
                 <div class="mx-n3">
-                    <div class="table-responsive" style="max-height: 420px;">
+                    <div class="table-responsive" style="max-height: 1000px;">
                         <table class="table table-striped table-bordered align-middle">
                         {{-- <table class="table table-striped table-bordered align-middle" wire:poll.visible.5s="refreshPresensi"> --}}
                             <thead class="table-light sticky-top">

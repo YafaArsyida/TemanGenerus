@@ -76,7 +76,7 @@
                         <div class="row g-3">
 
                             {{-- Tanggal / Hari Rutin --}}
-                            <div class="col-lg-4 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="p-2 border border-dashed rounded">
                                     <p class="text-muted mb-1">Tanggal</p>
                                     <h6 class="mb-0">
@@ -95,7 +95,7 @@
                             </div>
 
                             {{-- Waktu --}}
-                            <div class="col-lg-4 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="p-2 border border-dashed rounded">
                                     <p class="text-muted mb-1">Waktu</p>
                                     <h6 class="mb-0">
@@ -105,11 +105,21 @@
                             </div>
 
                             {{-- Jenjang --}}
-                            <div class="col-lg-4 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="p-2 border border-dashed rounded">
                                     <p class="text-muted mb-1">Jenjang</p>
-                                    <h6 class="mb-0">
+                                    <h6 class="mb-0 text-uppercase">
                                         {{ ucfirst($kegiatan->jenjang ?? 'Semua') }}
+                                    </h6>
+                                </div>
+                            </div>
+
+                            {{-- Target --}}
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="p-2 border border-dashed rounded">
+                                    <p class="text-muted mb-1">Target</p>
+                                    <h6 class="mb-0">
+                                        {{ $targetPeserta ?? '-' }} Peserta
                                     </h6>
                                 </div>
                             </div>
