@@ -224,13 +224,6 @@
                                     <i class="ri-mark-pen-line fs-17 align-middle"></i> Edit
                                 </a>
 
-                                {{-- Laporan --}}
-                                <a href="javascript:void(0)" class="text-success d-inline-block" title="Laporan Kehadiran" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasLaporan" aria-controls="offcanvasLaporan"
-                                    wire:click.prevent="$emit('KegiatanReport', {{ $item->ms_kegiatan_id }})">
-                                    <i class="ri-file-chart-line fs-17 align-middle"></i> Laporan
-                                </a>
-
                                 {{-- Hapus --}}
                                 <a href="#ModalDeleteKegiatan" data-bs-toggle="modal" class="text-danger d-inline-block" title="Hapus Kegiatan"
                                     wire:click.prevent="$emit('KegiatanDelete', {{ $item->ms_kegiatan_id }})">

@@ -8,7 +8,7 @@
             <div class="modal-header bg-light p-3">
                 <h5 class="modal-title fw-bold" id="ModalDetailKegiatanLabel">
                     <i class="ri-calendar-event-line me-1 text-primary"></i>
-                    Detail Kegiatan
+                    Detail Kegiatan Generus
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -18,7 +18,6 @@
             <div class="modal-body">
                 <div class="card border shadow-sm mb-0">
                     <div class="card-body">
-
                         {{-- TITLE --}}
                         <h4 class="fw-bold mb-1 text-truncate">
                             @if($kegiatan->tipe_kegiatan === 'rutin')
@@ -119,7 +118,7 @@
                                 <div class="p-2 border border-dashed rounded">
                                     <p class="text-muted mb-1">Target</p>
                                     <h6 class="mb-0">
-                                        {{ $targetPeserta ?? '-' }} Peserta
+                                        {{ $kegiatan->targetPeserta() ?? '-' }} Peserta
                                     </h6>
                                 </div>
                             </div>
@@ -127,7 +126,7 @@
                             {{-- Lokasi Administratif --}}
                             <div class="col-lg-12">
                                 <div class="p-2 border border-dashed rounded">
-                                    <p class="text-muted mb-1">Target Kegiatan</p>
+                                    <p class="text-muted mb-1">Lingkup Kegiatan</p>
                                     <h6 class="mb-0">
                                         @if($kegiatan->scope === 'daerah')
                                         Daerah Solo Selatan

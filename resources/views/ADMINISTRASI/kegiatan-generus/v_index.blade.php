@@ -23,7 +23,6 @@
                 @livewire('administrasi.kegiatan-generus.edit')
                 @livewire('administrasi.kegiatan-generus.create')
                 @livewire('administrasi.kegiatan-generus.delete')
-                @livewire('administrasi.kegiatan-generus.report')
             </div>
         </div>
     

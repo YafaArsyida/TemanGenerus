@@ -20,7 +20,7 @@
             <div class="row-xxl-12">
                 @livewire('laporan.kegiatan-event.index')
                 @livewire('administrasi.kegiatan-generus.detail')
-                @livewire('administrasi.kegiatan-generus.report')
+                @livewire('laporan.kegiatan-event.report')
             </div>
         </div>
     

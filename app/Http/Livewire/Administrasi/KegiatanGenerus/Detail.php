@@ -10,7 +10,6 @@ use Livewire\Component;
 class Detail extends Component
 {
     public $kegiatan;
-    public $targetPeserta = 0;
 
     protected $listeners = [
         'KegiatanDetail'
@@ -47,40 +46,9 @@ class Detail extends Component
         } else {
             $this->kegiatan->hari_rutin_label = null;
         }
-
-        // 🔥 HITUNG TARGET PESERTA
-        $this->targetPeserta = $this->hitungTargetPeserta($this->kegiatan);
-
         $this->dispatchBrowserEvent('alertify-success', [
             'message' => 'Detail kegiatan ditampilkan'
         ]);
-    }
-
-    public function hitungTargetPeserta($kegiatan)
-    {
-        $query = Generus::query();
-
-        // Filter scope
-        if ($kegiatan->scope === 'desa' && $kegiatan->ms_desa_id) {
-            $query->whereHas('ms_kelompok', function ($q) use ($kegiatan) {
-                $q->where('ms_desa_id', $kegiatan->ms_desa_id);
-            });
-        }
-        if ($kegiatan->scope === 'kelompok' && $kegiatan->ms_kelompok_id) {
-            $query->where('ms_kelompok_id', $kegiatan->ms_kelompok_id);
-        }
-
-        // Filter jenjang usia
-        if ($kegiatan->jenjang && $kegiatan->jenjang !== 'semua') {
-            [$min, $max] = Generus::jenjangUsiaMap()[$kegiatan->jenjang] ?? [0, 100];
-
-            $query->whereRaw("
-            TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE())
-            BETWEEN ? AND ?
-        ", [$min, $max]);
-        }
-
-        return $query->count();
     }
 
     public function kegiatanPengumuman($kegiatanId)
