@@ -140,33 +140,6 @@ class Kegiatan extends Model
         return $this->hasMany(PresensiKegiatan::class, 'ms_kegiatan_id');
     }
 
-    public function targetPeserta()
-    {
-        $query = Generus::query();
-
-        // Filter scope
-        if ($this->scope === 'desa' && $this->ms_desa_id) {
-            $query->whereHas('ms_kelompok', function ($q) {
-                $q->where('ms_desa_id', $this->ms_desa_id);
-            });
-        }
-
-        if ($this->scope === 'kelompok' && $this->ms_kelompok_id) {
-            $query->where('ms_kelompok_id', $this->ms_kelompok_id);
-        }
-
-        // Filter jenjang usia
-        if ($this->jenjang && $this->jenjang !== 'semua') {
-            [$min, $max] = Generus::jenjangUsiaMap()[$this->jenjang] ?? [0, 100];
-
-            $query->whereRaw("
-                TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE())
-                BETWEEN ? AND ?
-            ", [$min, $max]);
-        }
-
-        return $query->count();
-    }
     public function targetPesertaQuery()
     {
         $query = Generus::query()->with('ms_kelompok.ms_desa');
@@ -194,6 +167,18 @@ class Kegiatan extends Model
 
         return $query;
     }
+
+    /**
+     * Total target peserta sesuai scope + jenjang kegiatan
+     */
+    public function targetPeserta()
+    {
+        return $this->targetPesertaQuery()->count();
+    }
+
+    /**
+     * Total hadir global
+     */
     public function totalHadir()
     {
         return $this->ms_presensi()
@@ -201,6 +186,9 @@ class Kegiatan extends Model
             ->count();
     }
 
+    /**
+     * Total izin global
+     */
     public function totalIzin()
     {
         return $this->ms_presensi()
@@ -208,30 +196,61 @@ class Kegiatan extends Model
             ->count();
     }
 
-    // public function totalAlfa()
-    // {
-    //     return $this->ms_presensi()
-    //         ->where('status_hadir', 'alfa')
-    //         ->count();
-    // }
+    /**
+     * Total alfa global
+     * Alfa = target - (hadir + izin + sakit)
+     */
     public function totalAlfa()
     {
         $target = $this->targetPeserta();
-        $hadir  = $this->totalHadir();
-        $izin   = $this->totalIzin();
 
-        $alfa = $target - $hadir - $izin;
+        $hadirIzinSakit = $this->ms_presensi()
+            ->whereIn('status_hadir', ['hadir', 'izin', 'sakit'])
+            ->count();
 
-        return $alfa < 0 ? 0 : $alfa; // jaga-jaga biar gak minus
+        return max(0, $target - $hadirIzinSakit);
     }
 
+    /**
+     * Presentase hadir global
+     */
     public function presentaseHadir()
     {
         $target = $this->targetPeserta();
-        $hadir  = $this->totalHadir();
-
         if ($target == 0) return 0;
 
-        return round(($hadir / $target) * 100, 1);
+        return round(($this->totalHadir() / $target) * 100, 1);
+    }
+
+    /**
+     * Presentase izin global
+     */
+    public function presentaseIzin()
+    {
+        $target = $this->targetPeserta();
+        if ($target == 0) return 0;
+
+        return round(($this->totalIzin() / $target) * 100, 1);
+    }
+
+    /**
+     * Presentase alfa global
+     */
+    public function presentaseAlfa()
+    {
+        $target = $this->targetPeserta();
+        if ($target == 0) return 0;
+
+        return round(($this->totalAlfa() / $target) * 100, 1);
+    }
+
+    public function insightGlobal()
+    {
+        $p = $this->presentaseHadir();
+
+        if ($p >= 85) return "🔥 Partisipasi Kegiatan sangat baik";
+        if ($p >= 65) return "👍 Partisipasi Kegiatan cukup baik";
+        if ($p >= 40) return "⚠️ Partisipasi Kegiatan rendah";
+        return "🚨 Partisipasi Kegiatan sangat rendah, perlu evaluasi";
     }
 }

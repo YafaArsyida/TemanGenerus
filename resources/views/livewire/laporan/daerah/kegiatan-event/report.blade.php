@@ -81,31 +81,54 @@
                 <div class="row g-3">
                     <div class="col-lg-3 col-sm-6">
                         <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Target Peserta</p>
-                            <h6 class="mb-0">{{ $kegiatan->targetPeserta() ?? '-' }} Generus</h6>
+                            <p class="text-muted mb-1">Target Peserta (Event)</p>
+                            <h6 class="mb-0">
+                                {{ $kegiatan->targetPeserta() ?? '-' }} Generus
+                            </h6>
                         </div>
                     </div>
-
+                
                     <div class="col-lg-3 col-sm-6">
                         <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Hadir</p>
-                            <h6 class="mb-0">{{ $kegiatan->totalHadir() ?? '-' }} Generus</h6>
+                            <p class="text-muted mb-1">Hadir (Global)</p>
+                            <h6 class="mb-0">
+                                {{ $kegiatan->totalHadir() ?? '-' }} Generus
+                                <small class="text-muted">
+                                    ({{ $kegiatan->presentaseHadir() }}%)
+                                </small>
+                            </h6>
                         </div>
                     </div>
-
+                
                     <div class="col-lg-3 col-sm-6">
                         <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Izin</p>
-                            <h6 class="mb-0">{{ $kegiatan->totalIzin() ?? '-' }} Generus</h6>
+                            <p class="text-muted mb-1">Izin (Global)</p>
+                            <h6 class="mb-0">
+                                {{ $kegiatan->totalIzin() ?? '-' }} Generus
+                                <small class="text-muted">
+                                    ({{ $kegiatan->presentaseIzin() }}%)
+                                </small>
+                            </h6>
                         </div>
                     </div>
-
+                
                     <div class="col-lg-3 col-sm-6">
                         <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Alfa</p>
-                            <h6 class="mb-0">{{ $kegiatan->totalAlfa() ?? '-' }} Generus</h6>
+                            <p class="text-muted mb-1">Alfa (Global)</p>
+                            <h6 class="mb-0 text-danger">
+                                {{ $kegiatan->totalAlfa() ?? '-' }} Generus
+                                <small>
+                                    ({{ $kegiatan->presentaseAlfa() }}%)
+                                </small>
+                            </h6>
                         </div>
                     </div>
+                </div>
+                <div class="alert alert-info mt-3">
+                    <i class="ri-lightbulb-flash-line me-1"></i>
+                    <strong>Insight Kegiatan:</strong>
+                    <br>
+                    {{ $kegiatan->insightGlobal() }}
                 </div>
             </div>
         </div>

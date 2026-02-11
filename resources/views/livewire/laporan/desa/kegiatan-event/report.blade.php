@@ -77,34 +77,106 @@
 
                 <hr>
 
-                {{-- DETAIL GRID --}}
-                <div class="row g-3">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Target Peserta</p>
-                            <h6 class="mb-0">{{ $kegiatan->targetPeserta() ?? '-' }} Generus</h6>
+                @if($this->isScopeDaerah)
+                    {{-- GLOBAL GRID --}}
+                    <div class="row g-3">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded">
+                                <p class="text-muted mb-1">Total Target Peserta (Event)</p>
+                                <h6 class="mb-0">
+                                    {{ $this->totalTarget }} Generus
+                                </h6>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded">
+                                <p class="text-muted mb-1">Hadir (Global)</p>
+                                <h6 class="mb-0">
+                                    {{ $kegiatan->totalHadir() }} Generus
+                                    <small class="text-muted">({{ $kegiatan->presentaseHadir() }}%)</small>
+                                </h6>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded">
+                                <p class="text-muted mb-1">Izin (Global)</p>
+                                <h6 class="mb-0">
+                                    {{ $kegiatan->totalIzin() }} Generus
+                                    <small class="text-muted">({{ $kegiatan->presentaseIzin() }}%)</small>
+                                </h6>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded">
+                                <p class="text-muted mb-1">Alfa (Global)</p>
+                                <h6 class="mb-0 text-danger">
+                                    {{ $kegiatan->totalAlfa() }} Generus
+                                    <small>({{ $kegiatan->presentaseAlfa() }}%)</small>
+                                </h6>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Hadir</p>
-                            <h6 class="mb-0">{{ $kegiatan->totalHadir() ?? '-' }} Generus</h6>
+                    
+                    <hr>
+                @endif
+                
+                @if($this->isScopeDaerah || $this->isScopeDesa)
+                    <div class="row g-3">
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded bg-soft-primary">
+                                <p class="text-muted mb-1">Target Peserta ({{ $nama_desa }})</p>
+                                <h6 class="mb-0">{{ $this->targetDesa }} Generus</h6>
+                            </div>
                         </div>
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded bg-soft-success">
+                                <p class="text-muted mb-1">Hadir</p>
+                                <h6 class="mb-0">
+                                    {{ $this->hadirDesa }} Generus
+                                    <small class="text-success fw-semibold">
+                                        ({{ $this->presentaseHadirDesa }}%)
+                                    </small>
+                                </h6>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded bg-soft-warning">
+                                <p class="text-muted mb-1">Izin</p>
+                                <h6 class="mb-0">
+                                    {{ $this->izinDesa }} Generus
+                                    <small class="text-warning fw-semibold">
+                                        ({{ $this->presentaseIzinDesa }}%)
+                                    </small>
+                                </h6>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="p-2 border border-dashed rounded bg-soft-danger">
+                                <p class="text-muted mb-1">Alfa</p>
+                                <h6 class="mb-0 text-danger">
+                                    {{ $this->alfaDesa }} Generus
+                                    <small class="text-danger fw-semibold">
+                                        ({{ $this->presentaseAlfaDesa }}%)
+                                    </small>
+                                </h6>
+                            </div>
+                        </div>
+                    
                     </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Izin</p>
-                            <h6 class="mb-0">{{ $kegiatan->totalIzin() ?? '-' }} Generus</h6>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Alfa</p>
-                            <h6 class="mb-0">{{ $kegiatan->totalAlfa() ?? '-' }} Generus</h6>
-                        </div>
+                @endif
+                <div class="mt-3">
+                    <div class="alert alert-info border-dashed">
+                        <i class="ri-lightbulb-flash-line me-1"></i>
+                        <strong>Insight Desa {{ $nama_desa }}:</strong>
+                        <br>
+                        {{ $this->insightDesa }}
                     </div>
                 </div>
             </div>
