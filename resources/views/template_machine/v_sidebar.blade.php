@@ -78,22 +78,65 @@
                         <i class="mdi mdi-calendar-check-outline"></i>
                         <span>Event Kegiatan</span>
                     </a>
-                </li>
-                <li class="menu-title"><span data-key="t-menu">Laporan</span></li>
+                </li>                
+                @php($role = auth()->user()->peran)
+                
+                {{-- DAERAH --}}
+                @if(in_array($role, ['SUPERADMIN','DAERAH']))
+                <li class="menu-title"><span data-key="t-menu">Laporan Daerah</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('lapooran.kegiatan-rutin') ? 'active' : '' }}"
-                        href="{{ route('laporan.kegiatan-rutin') }}">
-                        <i class="mdi mdi-calendar-check-outline"></i>
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.daerah.rutin') ? 'active' : '' }}"
+                        href="{{ route('laporan.daerah.rutin') }}">
+                        <i class="mdi mdi-calendar-sync"></i>
                         <span>Laporan Kegiatan Rutin</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('laporan.kegiatan-event') ? 'active' : '' }}"
-                        href="{{ route('laporan.kegiatan-event') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.daerah.event') ? 'active' : '' }}"
+                        href="{{ route('laporan.daerah.event') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
-                        <span>Laporan Kehadiran Event</span>
+                        <span>Laporan Kegiatan Event</span>
                     </a>
                 </li>
+                @endif
+                
+                {{-- DESA --}}
+                @if(in_array($role, ['SUPERADMIN','DESA']))
+                <li class="menu-title"><span data-key="t-menu">Laporan Desa</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.desa.rutin') ? 'active' : '' }}"
+                        href="{{ route('laporan.desa.rutin') }}">
+                        <i class="mdi mdi-home-city-outline"></i>
+                        <span>Laporan Kegiatan Rutin</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.desa.event') ? 'active' : '' }}"
+                        href="{{ route('laporan.desa.event') }}">
+                        <i class="mdi mdi-calendar-check-outline"></i>
+                        <span>Laporan Kegiatan Event</span>
+                    </a>
+                </li>
+                @endif
+                
+                {{-- KELOMPOK --}}
+                @if(in_array($role, ['SUPERADMIN','KELOMPOK']))
+                <li class="menu-title"><span data-key="t-menu">Laporan Kelompok</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.kelompok.rutin') ? 'active' : '' }}"
+                        href="{{ route('laporan.kelompok.rutin') }}">
+                        <i class="mdi mdi-account-group-outline"></i>
+                        <span>Laporan Kegiatan Rutin</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('laporan.kelompok.event') ? 'active' : '' }}"
+                        href="{{ route('laporan.kelompok.event') }}">
+                        <i class="mdi mdi-calendar-check-outline"></i>
+                        <span>Laporan Kegiatan Event</span>
+                    </a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
                         href="{{ route('administrasi.kegiatan-generus') }}">

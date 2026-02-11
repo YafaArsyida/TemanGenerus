@@ -1,11 +1,12 @@
 <div class="card">
     <div class="card-header border-0">
         <div class="d-flex align-items-center">
-            <h5 class="card-title mb-0 flex-grow-1">Kegiatan Generasi Penerus</h5>
+            <h5 class="card-title mb-0 flex-grow-1">Kegiatan Event Generasi Penerus</h5>
 
             <div class="flex-shrink-0">
                 <div class="d-flex gap-2 flex-wrap">
-                    <button data-bs-toggle="modal" data-bs-target="#ExportLaporanExcel" class="btn btn-soft-success"><i class="ri-file-excel-2-line pb-0"></i> Export</button>
+                    <button data-bs-toggle="modal" data-bs-target="#ExportLaporanExcel" class="btn btn-soft-success"><i
+                            class="ri-file-excel-2-line pb-0"></i> Export</button>
                 </div>
             </div>
         </div>
@@ -14,77 +15,52 @@
     <div class="card-body border border-dashed border-end-0 border-start-0">
 
         <div class="row g-3 align-items-end">
-
+        
             {{-- Search --}}
             <div class="col-xxl-4 col-sm-6">
                 <label class="form-label">Pencarian</label>
-                <input type="text" class="form-control" placeholder="Cari nama kegiatan..."
-                    wire:model.debounce.500ms="search">
+                <input type="text" class="form-control" placeholder="Cari nama kegiatan..." wire:model.debounce.500ms="search">
             </div>
-
-            {{-- Kelompok --}}
+        
+            {{-- Jenjang --}}
             <div class="col-xxl-2 col-sm-4">
-                <label class="form-label">Kelompok</label>
-                <select class="form-select" wire:model="ms_kelompok_id">
-                    <option value="">Semua Kelompok</option>
-                    @foreach($listKelompok as $k)
-                    <option value="{{ $k->ms_kelompok_id }}">
-                        Kelompok {{ $k->nama_kelompok }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-xxl-2 col-sm-3">
                 <label class="form-label">Jenjang Usia</label>
                 <select class="form-select" wire:model="jenjangUsia">
                     <option value="">Semua Generus</option>
-                    <option value="caberawit">
-                        Caberawit (0 – 11 Tahun)
-                    </option>
-                    <option value="remaja">
-                        Remaja (12 – 25 Tahun)
-                    </option>
-                    <option value="gp">
-                        GP (12 – 23 Tahun)
-                    </option>
-
-                    <option value="pra_nikah">
-                        Pra Nikah (19 – 23 Tahun)
-                    </option>
-
-                    <option value="mandiri">
-                        Mandiri (23 – 25 Tahun)
-                    </option>
+                    <option value="caberawit">Caberawit (0–11)</option>
+                    <option value="remaja">Remaja (12–30)</option>
+                    <option value="gp">GP (12–23)</option>
+                    <option value="pra_nikah">Pra Nikah (19–23)</option>
+                    <option value="mandiri">Mandiri (23–25)</option>
                 </select>
             </div>
-
-            {{-- Status --}}
-            <div class="col-xxl-1 col-sm-3">
-                <label class="form-label">Tingkat</label>
-                <select class="form-select" wire:model="scope">
+        
+            {{-- Status (opsional kalau ada kolom status) --}}
+            <div class="col-xxl-2 col-sm-4">
+                <label class="form-label">Status</label>
+                <select class="form-select" wire:model="status">
                     <option value="">Semua</option>
-                    <option value="daerah">Daerah</option>
-                    <option value="desa">Desa</option>
-                    <option value="kelompok">Kelompok</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="selesai">Selesai</option>
                 </select>
             </div>
-            {{-- Tanggal Awal --}}
-            <div class="col-xxl-3 col-sm-6">
+        
+            {{-- Periode --}}
+            <div class="col-xxl-4 col-sm-6">
                 <label class="form-label fw-semibold">Periode</label>
                 <div class="d-flex align-items-center gap-2">
-                    <input type="date" id="startDate" class="form-control" wire:model="startDate"
-                        value="{{ $startDate }}">
+                    <input type="date" id="startDate" class="form-control" wire:model="startDate" value="{{ $startDate }}">
                     <span class="text-muted">–</span>
                     <input type="date" id="endDate" class="form-control" wire:model="endDate" value="{{ $endDate }}">
                     <div class="col-auto">
-                        <button type="button" class="btn btn-soft-secondary btn-icon rounded-circle"
-                            wire:click="resetTanggal" title="Reset Tanggal">
+                        <button type="button" class="btn btn-soft-secondary btn-icon rounded-circle" wire:click="resetTanggal"
+                            title="Reset Tanggal">
                             <i class="ri-refresh-line fs-16"></i>
                         </button>
                     </div>
                 </div>
             </div>
+        
         </div>
 
     </div>
@@ -98,28 +74,96 @@
                         <th style="width: 50px">#</th>
                         <th>Tanggal & Waktu</th>
                         <th>Kegiatan</th>
-                        <th>Target Peserta</th>
+                        <th>Peserta</th>
+                        <th>Tingkat</th>
+                        <th>Target</th>
                         <th>Hadir</th>
                         <th>Izin</th>
+                        <th>Alfa</th>
                         <th>% Hadir</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @forelse($listKegiatan as $index => $item)
+                    @forelse($data as $index => $item)
                     <tr>
-                        <td>{{ $listKegiatan->firstItem() + $index }}</td>
+                        <td>{{ $data->firstItem() + $index }}</td>
                         {{-- Tanggal & Waktu --}}
-                        <td class="text-primary">
-                            @if($item->tipe_kegiatan === 'rutin')
-                            <i class="ri-repeat-line"></i> Kegiatan Rutin
-                            @else
-                            <i class="ri-calendar-event-line"></i> Event Sekali
-                            @endif
+                        <td>
+                            {{ $item->tanggal
+                            ? \App\Http\Controllers\HelperController::formatTanggalIndonesia($item->tanggal, 'd F Y')
+                            : '-' }}
+                            <div>{{ $item->waktu }}</div>
                         </td>
                         <td>
                             <strong>{{ $item->nama_kegiatan }}</strong>
+                        </td>
+                        <td>
+                            @php
+                            // 1️⃣ Jenjang: label + warna
+                            if ($item->jenjang) {
+                            [$jenjangLabel, $jenjangClass] = match($item->jenjang) {
+                            'caberawit' => ['Caberawit', 'text-bold'],
+                            'remaja' => ['Remaja', 'text-primary'],
+                            'gp' => ['GP', 'text-success'],
+                            'mandiri' => ['Mandiri', 'text-danger'],
+                            default => ['-', 'text-muted'],
+                            };
+                            } else {
+                            [$jenjangLabel, $jenjangClass] = ['Semua Jenjang', 'text-muted'];
+                            }
+
+                            // 2️⃣ Lokasi sesuai scope
+                            if ($item->scope === 'kelompok' && $item->ms_kelompok) {
+                            $lokasiLabel = "Kelompok ". $item->ms_kelompok->nama_kelompok;
+
+                            } elseif ($item->scope === 'desa' && $item->ms_desa) {
+                            $lokasiLabel = " Desa {$item->ms_desa->nama_desa}";
+
+                            } elseif ($item->scope === 'daerah') {
+                            $lokasiLabel = " Daerah Solo Selatan";
+
+                            } else {
+                            $lokasiLabel = '-';
+                            }
+                            @endphp
+
+                            {{-- FORMAT AKHIR --}}
+                            <strong class="{{ $jenjangClass }}">
+                                {{ $jenjangLabel }}
+                            </strong>
+                            <div class="text-bold">{{ $lokasiLabel }}</div>
+                        </td>
+
+                        <td>
+                            @if($item->scope === 'daerah')
+                            <strong>Kegiatan Daerah</strong>
+                            {{-- <div class="text-bold">Solo Selatan</div> --}}
+                            @elseif($item->scope === 'desa')
+                            <strong>Kegiatan Desa</strong>
+                            {{-- <div class="text-bold">{{ $item->ms_desa->nama_desa ?? '-' }}</div> --}}
+                            @elseif($item->scope === 'kelompok')
+                            <strong>Kegiatan Kelompok</strong>
+                            {{-- <div class="text-bold">{{ $item->ms_kelompok->nama_kelompok ?? '-' }}</div> --}}
+                            @endif
+                        </td>
+                        <td>
+                            <strong>{{ $item->targetPeserta() }} Peserta</strong>
+                        </td>
+                        <td class="fw-semibold text-primary">
+                            {{ $item->totalHadir() }} Peserta
+                        </td>
+
+                        <td class="fw-semibold text-body">
+                            {{ $item->totalIzin() }} Peserta
+                        </td>
+
+                        <td class="fw-semibold text-danger">
+                            {{ $item->totalAlfa() }} Peserta
+                        </td>
+                        <td class="fw-semibold text-primary fs-14">
+                            {{ $item->presentaseHadir() }} %
                         </td>
 
                         <td class="fw-semibold">
@@ -132,26 +176,12 @@
                                     <i class="ri-eye-line fs-17 align-middle"></i> Detail
                                 </a>
 
-                                {{-- Edit --}}
-                                <a href="#ModalEditKegiatan" data-bs-toggle="modal" class="text-warning d-inline-block"
-                                    title="Edit Kegiatan"
-                                    wire:click.prevent="$emit('KegiatanEdit', {{ $item->ms_kegiatan_id }}, {{ $ms_desa_id }})">
-                                    <i class="ri-mark-pen-line fs-17 align-middle"></i> Edit
-                                </a>
-
                                 {{-- Laporan --}}
                                 <a href="javascript:void(0)" class="text-success d-inline-block"
                                     title="Laporan Kehadiran" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasLaporan" aria-controls="offcanvasLaporan"
                                     wire:click.prevent="$emit('KegiatanReport', {{ $item->ms_kegiatan_id }})">
                                     <i class="ri-file-chart-line fs-17 align-middle"></i> Laporan
-                                </a>
-
-                                {{-- Hapus --}}
-                                <a href="#ModalDeleteKegiatan" data-bs-toggle="modal" class="text-danger d-inline-block"
-                                    title="Hapus Kegiatan"
-                                    wire:click.prevent="$emit('KegiatanDelete', {{ $item->ms_kegiatan_id }})">
-                                    <i class="ri-delete-bin-5-line fs-17 align-middle"></i>
                                 </a>
                             </div>
                         </td>
@@ -170,7 +200,7 @@
         </div>
 
         <div class="mt-3">
-            {{ $listKegiatan->links() }}
+            {{ $data->links() }}
         </div>
 
     </div>

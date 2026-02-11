@@ -1,20 +1,46 @@
 <?php
 
-namespace App\Http\Livewire\Laporan\KegiatanEvent;
+namespace App\Http\Livewire\Laporan\Desa\KegiatanEvent;
 
+use App\Models\Desa;
 use App\Models\Kegiatan;
 use Livewire\Component;
 
 class Report extends Component
 {
     public $kegiatan;
+    public $kegiatanId;
+
+    public $ms_desa_id;
+
+    public $nama_desa;
 
     protected $listeners = [
         'KegiatanReport' => 'loadReport'
     ];
 
-    public function loadReport($kegiatanId)
+    public function loadReport($kegiatanId, $desaId)
     {
+        $this->kegiatanId = $kegiatanId;
+        $this->ms_desa_id = $desaId;
+
+        $desa = Desa::find($desaId);
+        $this->nama_desa = $desa?->nama_desa ?? '-';
+
+        // broadcast ke child
+        $this->emitTo(
+            'laporan.desa.kegiatan-event.report.attendance',
+            'setKegiatan',
+            $kegiatanId,
+            $this->ms_desa_id // <--- kirim desa aktif
+        );
+
+        $this->emitTo(
+            'laporan.desa.kegiatan-event.report.alfa',
+            'setKegiatan',
+            $kegiatanId,
+            $this->ms_desa_id
+        );
         $this->kegiatan = Kegiatan::with([
             'ms_desa',
             'ms_kelompok.ms_desa'
@@ -52,6 +78,6 @@ class Report extends Component
     }
     public function render()
     {
-        return view('livewire.laporan.kegiatan-event.report');
+        return view('livewire.laporan.desa.kegiatan-event.report');
     }
 }

@@ -23,55 +23,31 @@
                     wire:model.debounce.500ms="search">
             </div>
 
-            {{-- Kelompok --}}
+            {{-- Jenjang --}}
             <div class="col-xxl-2 col-sm-4">
-                <label class="form-label">Kelompok</label>
-                <select class="form-select" wire:model="ms_kelompok_id">
-                    <option value="">Semua Kelompok</option>
-                    @foreach($listKelompok as $k)
-                    <option value="{{ $k->ms_kelompok_id }}">
-                        Kelompok {{ $k->nama_kelompok }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-xxl-2 col-sm-3">
                 <label class="form-label">Jenjang Usia</label>
                 <select class="form-select" wire:model="jenjangUsia">
                     <option value="">Semua Generus</option>
-                    <option value="caberawit">
-                        Caberawit (0 – 11 Tahun)
-                    </option>
-                    <option value="remaja">
-                        Remaja (12 – 30 Tahun)
-                    </option>
-                    <option value="gp">
-                        GP (12 – 23 Tahun)
-                    </option>
-
-                    <option value="pra_nikah">
-                        Pra Nikah (19 – 23 Tahun)
-                    </option>
-
-                    <option value="mandiri">
-                        Mandiri (23 – 25 Tahun)
-                    </option>
+                    <option value="caberawit">Caberawit (0–11)</option>
+                    <option value="remaja">Remaja (12–30)</option>
+                    <option value="gp">GP (12–23)</option>
+                    <option value="pra_nikah">Pra Nikah (19–23)</option>
+                    <option value="mandiri">Mandiri (23–25)</option>
                 </select>
             </div>
 
-            {{-- Status --}}
-            <div class="col-xxl-1 col-sm-3">
-                <label class="form-label">Tingkat</label>
-                <select class="form-select" wire:model="scope">
+            {{-- Status (opsional kalau ada kolom status) --}}
+            <div class="col-xxl-2 col-sm-4">
+                <label class="form-label">Status</label>
+                <select class="form-select" wire:model="status">
                     <option value="">Semua</option>
-                    <option value="daerah">Daerah</option>
-                    <option value="desa">Desa</option>
-                    <option value="kelompok">Kelompok</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="selesai">Selesai</option>
                 </select>
             </div>
-            {{-- Tanggal Awal --}}
-            <div class="col-xxl-3 col-sm-6">
+
+            {{-- Periode --}}
+            <div class="col-xxl-4 col-sm-6">
                 <label class="form-label fw-semibold">Periode</label>
                 <div class="d-flex align-items-center gap-2">
                     <input type="date" id="startDate" class="form-control" wire:model="startDate"
@@ -86,6 +62,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
@@ -111,9 +88,9 @@
                 </thead>
 
                 <tbody>
-                    @forelse($listKegiatan as $index => $item)
+                    @forelse($data as $index => $item)
                     <tr>
-                        <td>{{ $listKegiatan->firstItem() + $index }}</td>
+                        <td>{{ $data->firstItem() + $index }}</td>
                         {{-- Tanggal & Waktu --}}
                         <td>
                             {{ $item->tanggal
@@ -128,39 +105,39 @@
                             @php
                             // 1️⃣ Jenjang: label + warna
                             if ($item->jenjang) {
-                            [$jenjangLabel, $jenjangClass] = match($item->jenjang) {
-                            'caberawit' => ['Caberawit', 'text-bold'],
-                            'remaja' => ['Remaja', 'text-primary'],
-                            'gp' => ['GP', 'text-success'],
-                            'mandiri' => ['Mandiri', 'text-danger'],
-                            default => ['-', 'text-muted'],
-                            };
+                                [$jenjangLabel, $jenjangClass] = match($item->jenjang) {
+                                    'caberawit' => ['Caberawit', 'text-bold'],
+                                    'remaja' => ['Remaja', 'text-primary'],
+                                    'gp' => ['GP', 'text-success'],
+                                    'mandiri' => ['Mandiri', 'text-danger'],
+                                    default => ['-', 'text-muted'],
+                                };
                             } else {
-                            [$jenjangLabel, $jenjangClass] = ['Semua Jenjang', 'text-muted'];
+                                [$jenjangLabel, $jenjangClass] = ['Semua Jenjang', 'text-muted'];
                             }
-                        
+
                             // 2️⃣ Lokasi sesuai scope
                             if ($item->scope === 'kelompok' && $item->ms_kelompok) {
-                            $lokasiLabel = "Kelompok ". $item->ms_kelompok->nama_kelompok;
-                        
-                            } elseif ($item->scope === 'desa' && $item->ms_desa) {
-                            $lokasiLabel = " Desa {$item->ms_desa->nama_desa}";
-                        
-                            } elseif ($item->scope === 'daerah') {
-                            $lokasiLabel = " Daerah Solo Selatan";
-                        
-                            } else {
-                            $lokasiLabel = '-';
+                                $lokasiLabel = "Kelompok ". $item->ms_kelompok->nama_kelompok;
+
+                                } elseif ($item->scope === 'desa' && $item->ms_desa) {
+                                $lokasiLabel = " Desa {$item->ms_desa->nama_desa}";
+
+                                } elseif ($item->scope === 'daerah') {
+                                $lokasiLabel = " Daerah Solo Selatan";
+
+                                } else {
+                                $lokasiLabel = '-';
                             }
                             @endphp
-                        
+
                             {{-- FORMAT AKHIR --}}
                             <strong class="{{ $jenjangClass }}">
                                 {{ $jenjangLabel }}
                             </strong>
                             <div class="text-bold">{{ $lokasiLabel }}</div>
                         </td>
-                        
+
                         <td>
                             @if($item->scope === 'daerah')
                             <strong>Kegiatan Daerah</strong>
@@ -202,10 +179,9 @@
                                 </a>
 
                                 {{-- Laporan --}}
-                                <a href="javascript:void(0)" class="text-success d-inline-block"
-                                    title="Laporan Kehadiran" data-bs-toggle="offcanvas"
+                                <a href="javascript:void(0)" class="text-success d-inline-block" title="Laporan Kehadiran" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasLaporan" aria-controls="offcanvasLaporan"
-                                    wire:click.prevent="$emit('KegiatanReport', {{ $item->ms_kegiatan_id }})">
+                                    wire:click.prevent="$emit('KegiatanReport', {{ $item->ms_kegiatan_id }}, {{ $ms_desa_id }})">
                                     <i class="ri-file-chart-line fs-17 align-middle"></i> Laporan
                                 </a>
                             </div>
@@ -225,7 +201,7 @@
         </div>
 
         <div class="mt-3">
-            {{ $listKegiatan->links() }}
+            {{ $data->links() }}
         </div>
 
     </div>
