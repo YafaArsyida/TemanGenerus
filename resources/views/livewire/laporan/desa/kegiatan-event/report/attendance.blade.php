@@ -5,9 +5,11 @@
         </h5>
 
         <div class="flex-shrink-0 d-flex gap-2 flex-wrap">
-            <button data-bs-toggle="modal" data-bs-target="#ExportLaporanExcel" class="btn btn-soft-success">
-                <i class="ri-file-excel-2-line"></i> Export
-            </button>
+            <div class="flex-shrink-0 d-flex gap-2 flex-wrap">
+                <button id="btnExportAttendance" class="btn btn-soft-success">
+                    <i class="ri-file-excel-2-line"></i> Export
+                </button>
+            </div>
         </div>
     </div>
 
@@ -50,7 +52,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle w-100">
+            <table id="Attendance" class="table table-hover table-striped align-middle w-100">
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
@@ -107,4 +109,55 @@
             {{ $presensi->links() }}
         </div>
     </div>
+    <script>
+        document.getElementById('btnExportAttendance').addEventListener('click', function () {
+        
+            alertify.success("Menyiapkan Dokumen");
+        
+            setTimeout(function () {
+        
+                var table = document.getElementById("Attendance");
+        
+                var data = [];
+                var exportCols = [0,1,2,3,4,5];
+        
+                // Header
+                var headers = [];
+                for (var i = 0; i < exportCols.length; i++) {
+                    headers.push(table.tHead.rows[0].cells[exportCols[i]].innerText.trim());
+                }
+                data.push(headers);
+        
+                // Body
+                for (var i = 0; i < table.tBodies[0].rows.length; i++) {
+                    var row = table.tBodies[0].rows[i];
+                    var rowData = [];
+                    for (var j = 0; j < exportCols.length; j++) {
+                        rowData.push(row.cells[exportCols[j]].innerText.trim());
+                    }
+                    data.push(rowData);
+                }
+        
+                // Footer (jika ada)
+                if (table.tFoot) {
+                    for (var i = 0; i < table.tFoot.rows.length; i++) {
+                        var row = table.tFoot.rows[i];
+                        var rowData = [];
+                        for (var j = 0; j < exportCols.length; j++) {
+                            rowData.push(row.cells[exportCols[j]].innerText.trim());
+                        }
+                        data.push(rowData);
+                    }
+                }
+        
+                // Excel
+                var wb = XLSX.utils.book_new();
+                var ws = XLSX.utils.aoa_to_sheet(data);
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        
+                XLSX.writeFile(wb, "Laporan-Kehadiran-Generus.xlsx");
+        
+            }, 300); // delay kecil biar alert tampil
+        });
+    </script>
 </div>

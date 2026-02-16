@@ -81,54 +81,116 @@
                 <div class="row g-3">
                     <div class="col-lg-3 col-sm-6">
                         <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Target Peserta (Event)</p>
-                            <h6 class="mb-0">
-                                {{ $kegiatan->targetPeserta() ?? '-' }} Generus
-                            </h6>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm me-2">
+                                    <div class="avatar-title rounded bg-transparent text-primary fs-24">
+                                        <i class="ri-group-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="text-muted mb-1">Target Peserta</p>
+                                    <h5 class="mb-0">
+                                        {{ $kegiatan->targetPeserta() ?? '-' }}
+                                        <small class="text-muted">Generus</small>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hadir -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="p-2 border border-dashed rounded">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm me-2">
+                                    <div class="avatar-title rounded bg-transparent text-success fs-24">
+                                        <i class="ri-user-follow-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="text-muted mb-1">Hadir</p>
+                                    <h5 class="mb-0">
+                                        {{ $kegiatan->totalHadir() }}
+                                        <small class="text-success">
+                                            ({{ $kegiatan->presentaseHadir() }}%)
+                                        </small>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Izin -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="p-2 border border-dashed rounded">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm me-2">
+                                    <div class="avatar-title rounded bg-transparent text-warning fs-24">
+                                        <i class="ri-user-star-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="text-muted mb-1">Izin</p>
+                                    <h5 class="mb-0">
+                                        {{ $kegiatan->totalIzin() }}
+                                        <small class="text-warning">
+                                            ({{ $kegiatan->presentaseIzin() }}%)
+                                        </small>
+                                    </h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 
+                    <!-- Alfa -->
                     <div class="col-lg-3 col-sm-6">
                         <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Hadir (Global)</p>
-                            <h6 class="mb-0">
-                                {{ $kegiatan->totalHadir() ?? '-' }} Generus
-                                <small class="text-muted">
-                                    ({{ $kegiatan->presentaseHadir() }}%)
-                                </small>
-                            </h6>
-                        </div>
-                    </div>
-                
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Izin (Global)</p>
-                            <h6 class="mb-0">
-                                {{ $kegiatan->totalIzin() ?? '-' }} Generus
-                                <small class="text-muted">
-                                    ({{ $kegiatan->presentaseIzin() }}%)
-                                </small>
-                            </h6>
-                        </div>
-                    </div>
-                
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="p-2 border border-dashed rounded">
-                            <p class="text-muted mb-1">Alfa (Global)</p>
-                            <h6 class="mb-0 text-danger">
-                                {{ $kegiatan->totalAlfa() ?? '-' }} Generus
-                                <small>
-                                    ({{ $kegiatan->presentaseAlfa() }}%)
-                                </small>
-                            </h6>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm me-2">
+                                    <div class="avatar-title rounded bg-transparent text-danger fs-24">
+                                        <i class="ri-user-unfollow-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="text-muted mb-1">Alfa</p>
+                                    <h5 class="mb-0 text-danger">
+                                        {{ $kegiatan->totalAlfa() }}
+                                        <small class="text-danger">
+                                            ({{ $kegiatan->presentaseAlfa() }}%)
+                                        </small>
+                                    </h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="alert alert-info mt-3">
-                    <i class="ri-lightbulb-flash-line me-1"></i>
-                    <strong>Insight Kegiatan:</strong>
-                    <br>
-                    {{ $kegiatan->insightGlobal() }}
+                
+                <div class="mt-3">
+                    <div class="card border-0 shadow-sm border-start border-4 border-primary">
+                        <div class="card-body">
+                
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <div class="avatar-sm">
+                                        <div class="avatar-title rounded bg-soft-info text-white fs-20">
+                                            <i class="ri-lightbulb-flash-line"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-semibold">
+                                        Insight Kegiatan
+                                    </h6>
+                
+                                    <p class="text-muted mb-0">
+                                        {{ $kegiatan->insightGlobal() }}
+                                    </p>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

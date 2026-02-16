@@ -17,12 +17,25 @@
         <div class="row g-3 align-items-end">
 
             {{-- Search --}}
-            <div class="col-xxl-4 col-sm-6">
+            <div class="col-xxl-2 col-sm-6">
                 <label class="form-label">Pencarian</label>
                 <input type="text" class="form-control" placeholder="Cari nama kegiatan..."
                     wire:model.debounce.500ms="search">
             </div>
 
+            {{-- Kelompok --}}
+            <div class="col-xxl-2 col-sm-4">
+                <label class="form-label">Kelompok</label>
+                <select class="form-select" wire:model="ms_kelompok_id" wire:loading.attr="disabled">
+                    {{-- <option value="">Semua Kelompok</option> --}}
+                    @foreach($listKelompok as $k)
+                    <option value="{{ $k->ms_kelompok_id }}">
+                        Kelompok {{ $k->nama_kelompok }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            
             {{-- Jenjang --}}
             <div class="col-xxl-2 col-sm-4">
                 <label class="form-label">Jenjang Usia</label>
@@ -107,29 +120,29 @@
                             @php
                             // 1️⃣ Jenjang: label + warna
                             if ($item->jenjang) {
-                                [$jenjangLabel, $jenjangClass] = match($item->jenjang) {
-                                    'caberawit' => ['Caberawit', 'text-bold'],
-                                    'remaja' => ['Remaja', 'text-primary'],
-                                    'gp' => ['GP', 'text-success'],
-                                    'mandiri' => ['Mandiri', 'text-danger'],
-                                    default => ['-', 'text-muted'],
-                                };
+                            [$jenjangLabel, $jenjangClass] = match($item->jenjang) {
+                            'caberawit' => ['Caberawit', 'text-bold'],
+                            'remaja' => ['Remaja', 'text-primary'],
+                            'gp' => ['GP', 'text-success'],
+                            'mandiri' => ['Mandiri', 'text-danger'],
+                            default => ['-', 'text-muted'],
+                            };
                             } else {
-                                [$jenjangLabel, $jenjangClass] = ['Semua Jenjang', 'text-muted'];
+                            [$jenjangLabel, $jenjangClass] = ['Semua Jenjang', 'text-muted'];
                             }
 
                             // 2️⃣ Lokasi sesuai scope
                             if ($item->scope === 'kelompok' && $item->ms_kelompok) {
-                                $lokasiLabel = "Kelompok ". $item->ms_kelompok->nama_kelompok;
+                            $lokasiLabel = "Kelompok ". $item->ms_kelompok->nama_kelompok;
 
-                                } elseif ($item->scope === 'desa' && $item->ms_desa) {
-                                $lokasiLabel = " Desa {$item->ms_desa->nama_desa}";
+                            } elseif ($item->scope === 'desa' && $item->ms_desa) {
+                            $lokasiLabel = " Desa {$item->ms_desa->nama_desa}";
 
-                                } elseif ($item->scope === 'daerah') {
-                                $lokasiLabel = " Daerah Solo Selatan";
+                            } elseif ($item->scope === 'daerah') {
+                            $lokasiLabel = " Daerah Solo Selatan";
 
-                                } else {
-                                $lokasiLabel = '-';
+                            } else {
+                            $lokasiLabel = '-';
                             }
                             @endphp
 
@@ -187,9 +200,10 @@
                                 </a>
 
                                 {{-- Laporan --}}
-                                <a href="javascript:void(0)" class="text-success d-inline-block" title="Laporan Kehadiran" data-bs-toggle="offcanvas"
+                                <a href="javascript:void(0)" class="text-success d-inline-block"
+                                    title="Laporan Kehadiran" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvasLaporan" aria-controls="offcanvasLaporan"
-                                    wire:click.prevent="$emit('KegiatanReport', {{ $item->ms_kegiatan_id }}, {{ $ms_desa_id }})">
+                                    wire:click.prevent="$emit('KegiatanReport', {{ $item->ms_kegiatan_id }}, {{ $ms_kelompok_id }})">
                                     <i class="ri-file-chart-line fs-17 align-middle"></i> Laporan
                                 </a>
                             </div>

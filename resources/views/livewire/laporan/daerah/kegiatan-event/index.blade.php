@@ -81,6 +81,8 @@
                         <th>Izin</th>
                         <th>Alfa</th>
                         <th>% Hadir</th>
+                        <th>% Izin</th>
+                        <th>% Alfa</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -165,6 +167,12 @@
                         <td class="fw-semibold text-primary fs-14">
                             {{ $item->presentaseHadir() }} %
                         </td>
+                        <td class="fw-semibold text-body fs-14">
+                            {{ $item->presentaseIzin() }} %
+                        </td>
+                        <td class="fw-semibold text-danger fs-14">
+                            {{ $item->presentaseAlfa() }} %
+                        </td>
 
                         <td class="fw-semibold">
                             {{-- 2️⃣ Tombol CRUD --}}
@@ -244,7 +252,7 @@
     
                     var data = [];
                     // Kolom yang ingin diexport 
-                    var exportCols = [0,1,2,3,4,5];
+                    var exportCols = [0,1,2,3,4,5,6,7,8,9];
     
                     // Ambil header
                     var headers = [];
