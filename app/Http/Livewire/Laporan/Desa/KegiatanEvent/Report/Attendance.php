@@ -95,7 +95,6 @@ class Attendance extends Component
             ->paginate(50);
     }
 
-
     public function render()
     {
         return view('livewire.laporan.desa.kegiatan-event.report.attendance',[
