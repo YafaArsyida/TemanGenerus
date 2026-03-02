@@ -20,6 +20,17 @@ class HelperController extends Controller
     {
         $carbonDate = Carbon::parse($date);
 
+        // Nama hari
+        $hariIndonesia = [
+            'Sunday' => 'Minggu',
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+        ];
+
         // Array nama bulan dalam bahasa Indonesia
         $bulanIndonesia = [
             'January' => 'Januari',
@@ -36,10 +47,16 @@ class HelperController extends Controller
             'December' => 'Desember',
         ];
 
-        // Format tanggal dan ganti nama bulan dengan bahasa Indonesia
         $formattedDate = $carbonDate->format($format);
-        foreach ($bulanIndonesia as $english => $indonesian) {
-            $formattedDate = str_replace($english, $indonesian, $formattedDate);
+
+        // replace hari
+        foreach ($hariIndonesia as $eng => $id) {
+            $formattedDate = str_replace($eng, $id, $formattedDate);
+        }
+
+        // replace bulan
+        foreach ($bulanIndonesia as $eng => $id) {
+            $formattedDate = str_replace($eng, $id, $formattedDate);
         }
 
         return $formattedDate;

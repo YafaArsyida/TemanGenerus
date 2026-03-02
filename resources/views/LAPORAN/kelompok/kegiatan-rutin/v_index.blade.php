@@ -18,8 +18,10 @@
     
         <div class="row">
             <div class="row-xxl-12">
-                @livewire('laporan.kegiatan-rutin.index')
-                @livewire('administrasi.kegiatan-generus.report')
+                @livewire('laporan.kelompok.kegiatan-rutin.index')
+                @livewire('administrasi.kegiatan-generus.detail')
+                {{-- @livewire('administrasi.kegiatan-generus.report') --}}
+                @livewire('laporan.kelompok.kegiatan-rutin.report')
             </div>
         </div>
     
