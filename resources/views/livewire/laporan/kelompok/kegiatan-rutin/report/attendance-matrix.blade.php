@@ -13,10 +13,8 @@
         </div>
     </div>
 
-
     {{-- BODY --}}
     <div class="card-body">
-
         {{-- FILTER --}}
         <div class="row g-3 mb-3">
 
@@ -42,9 +40,9 @@
             <div class="col-xxl-4 col-sm-12">
                 <label class="form-label fw-semibold">Periode</label>
                 <div class="d-flex align-items-center gap-2">
-                    <input type="date" id="startDate" class="form-control" wire:model="startDate" value="{{ $startDate }}">
+                    <input type="date" id="startDate" class="form-control" wire:model.lazy="startDate" value="{{ $startDate }}">
                     <span class="text-muted">–</span>
-                    <input type="date" id="endDate" class="form-control" wire:model="endDate" value="{{ $endDate }}">
+                    <input type="date" id="endDate" class="form-control" wire:model.lazy="endDate" value="{{ $endDate }}">
                     <div class="col-auto">
                         <button type="button" class="btn btn-soft-secondary btn-icon rounded-circle" wire:click="resetTanggal"
                             title="Reset Tanggal">
@@ -73,7 +71,7 @@
                         <th class="text-center" style="min-width:90px">
                             {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia($tgl, 'l') }}
                             <div class="small text-muted">
-                                {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia($tgl, 'd M') }}
+                                {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia($tgl, 'd F Y') }}
                             </div>
                         </th>
                         @endforeach
@@ -107,9 +105,6 @@
                             @elseif($status == 'izin')
                             <span class="badge bg-warning">I</span>
                 
-                            @elseif($status == 'sakit')
-                            <span class="badge bg-info">S</span>
-                
                             @else
                             <span class="badge bg-danger">A</span>
                             @endif
@@ -131,15 +126,9 @@
 
         {{-- LEGEND --}}
         <div class="mt-3 d-flex gap-3 flex-wrap">
-
             <span class="badge bg-success">H</span> Hadir
-
             <span class="badge bg-warning">I</span> Izin
-
-            <span class="badge bg-info">S</span> Sakit
-
             <span class="badge bg-danger">A</span> Alfa
-
         </div>
 
     </div>

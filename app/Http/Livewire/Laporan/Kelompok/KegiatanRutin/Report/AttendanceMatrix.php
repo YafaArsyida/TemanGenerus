@@ -47,11 +47,48 @@ class AttendanceMatrix extends Component
 
         $this->loadTanggalMatrix();
     }
+
+    public function updatedStartDate()
+    {
+        $this->loadTanggalMatrix();
+
+        $this->dispatchBrowserEvent('alertify-success', [
+            'message' => 'Tanggal mulai diperbarui'
+        ]);
+    }
+
+    public function updatedEndDate()
+    {
+        $this->loadTanggalMatrix();
+
+        $this->dispatchBrowserEvent('alertify-success', [
+            'message' => 'Tanggal akhir diperbarui'
+        ]);
+    }
+
+    public function resetTanggal()
+    {
+        $this->startDate = now()->startOfMonth()->format('Y-m-d');
+        $this->endDate   = now()->endOfMonth()->format('Y-m-d');
+
+        $this->loadTanggalMatrix();
+
+        $this->dispatchBrowserEvent('alertify-success', [
+            'message' => 'Periode diperbarui'
+        ]);
+    }
+
     public function loadTanggalMatrix()
     {
         $this->tanggalMatrix = [];
 
-        if (!$this->kegiatan) return;
+        if (!$this->kegiatan || !$this->startDate || !$this->endDate) {
+            return;
+        }
+
+        if (Carbon::parse($this->endDate)->lt(Carbon::parse($this->startDate))) {
+            return;
+        }
 
         $hariRutin = $this->kegiatan->hari_rutin ?? [];
 
@@ -66,6 +103,7 @@ class AttendanceMatrix extends Component
             }
         }
     }
+    
     public function getGenerusProperty()
     {
         if (!$this->kegiatan) return collect();
