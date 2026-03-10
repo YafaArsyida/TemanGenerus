@@ -133,10 +133,10 @@ class AttendanceMatrix extends Component
         if (!$this->ms_kegiatan_id) return collect();
 
         return PresensiKegiatan::where('ms_kegiatan_id', $this->ms_kegiatan_id)
-            ->whereBetween('waktu_hadir', [$this->startDate, $this->endDate])
+            ->whereBetween('tanggal_presensi', [$this->startDate, $this->endDate])
             ->get()
             ->keyBy(function ($item) {
-                return $item->ms_generus_id . '_' . date('Y-m-d', strtotime($item->waktu_hadir));
+                return $item->ms_generus_id . '_' . $item->tanggal_presensi;
             });
     }
 
@@ -149,6 +149,32 @@ class AttendanceMatrix extends Component
         }
 
         return $this->presensiMap[$key]->status_hadir;
+    }
+
+    public function totalGenerus($generusId)
+    {
+        $totalH = 0;
+        $totalI = 0;
+        $totalA = 0;
+
+        foreach ($this->tanggalMatrix as $tgl) {
+
+            $status = $this->status($generusId, $tgl);
+
+            if ($status == 'hadir') {
+                $totalH++;
+            } elseif ($status == 'izin') {
+                $totalI++;
+            } else {
+                $totalA++;
+            }
+        }
+
+        return [
+            'hadir' => $totalH,
+            'izin'  => $totalI,
+            'alfa'  => $totalA
+        ];
     }
     
     public function render()

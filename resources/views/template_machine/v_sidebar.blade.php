@@ -84,13 +84,13 @@
                 {{-- DAERAH --}}
                 @if(in_array($role, ['SUPERADMIN','DAERAH']))
                 <li class="menu-title"><span data-key="t-menu">Laporan Daerah</span></li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.daerah.rutin') ? 'active' : '' }}"
                         href="{{ route('laporan.daerah.rutin') }}">
                         <i class="mdi mdi-calendar-sync"></i>
                         <span>Laporan Kegiatan Rutin</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.daerah.event') ? 'active' : '' }}"
                         href="{{ route('laporan.daerah.event') }}">
@@ -103,13 +103,13 @@
                 {{-- DESA --}}
                 @if(in_array($role, ['SUPERADMIN','DESA']))
                 <li class="menu-title"><span data-key="t-menu">Laporan Desa</span></li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.desa.rutin') ? 'active' : '' }}"
                         href="{{ route('laporan.desa.rutin') }}">
                         <i class="mdi mdi-home-city-outline"></i>
                         <span>Laporan Kegiatan Rutin</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.desa.event') ? 'active' : '' }}"
                         href="{{ route('laporan.desa.event') }}">
@@ -137,13 +137,13 @@
                     </a>
                 </li>
                 @endif
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
                         href="{{ route('administrasi.kegiatan-generus') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
                         <span>Rekapitulasi Bulanan</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="menu-title"><span data-key="t-menu">sistem</span></li>
                 <!-- Akses Petugas -->
                 <li class="nav-item">

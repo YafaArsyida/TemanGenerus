@@ -231,55 +231,108 @@
             </div>
         </div>
     </div>
+    {{-- MODAL MATRIX ATTENDANCE --}}
+    <div class="modal fade zoomIn" id="ExportLaporanMatrix" tabindex="-1" aria-labelledby="exportRecordLabel"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-5 text-center">
+                    <lord-icon src="https://cdn.lordicon.com/fjvfsqea.json" trigger="loop"
+                        colors="primary:#405189,secondary:#f06548" style="width:90px;height:90px"></lord-icon>
+                    <div class="mt-4 text-center">
+                        <h4 class="fs-semibold">Konfirmasi Export</h4>
+                        <p class="text-muted fs-14 mb-4 pt-1">
+                            Apakah Anda yakin ingin mengekspor laporan matrix Kegiatan Generus? Data yang diekspor akan
+                            sesuai dengan tabel yang ditampilkan.
+                        </p>
+                        <div class="hstack gap-2 justify-content-center remove">
+                            <button class="btn btn-link link-success fw-medium text-decoration-none shadow-none"
+                                data-bs-dismiss="modal">
+                                <i class="ri-close-line me-1 align-middle"></i> Batal
+                            </button>
+                            <button class="btn btn-primary" id="konfirmasiExportMatrix" data-bs-dismiss="modal">Ya,
+                                Export!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
+        // index
         document.getElementById('konfirmasiExportLaporan').addEventListener('click', function () {
-                alertify.success("Menyiapkan Dokumen");
-    
-                setTimeout(function () {
-                    var table = document.getElementById("Laporan");
-    
-                    var data = [];
-                    // Kolom yang ingin diexport 
-                    var exportCols = [0,1,2,3,4,5];
-    
-                    // Ambil header
-                    var headers = [];
-                    for(var i=0; i<exportCols.length; i++){
-                        headers.push(table.tHead.rows[0].cells[exportCols[i]].innerText.trim());
+            alertify.success("Menyiapkan Dokumen");
+
+            setTimeout(function () {
+                var table = document.getElementById("Laporan");
+
+                var data = [];
+                // Kolom yang ingin diexport 
+                var exportCols = [0,1,2,3,4,5];
+
+                // Ambil header
+                var headers = [];
+                for(var i=0; i<exportCols.length; i++){
+                    headers.push(table.tHead.rows[0].cells[exportCols[i]].innerText.trim());
+                }
+                data.push(headers);
+
+                // Ambil data tbody
+                for(var i=0; i<table.tBodies[0].rows.length; i++){
+                    var row = table.tBodies[0].rows[i];
+                    var rowData = [];
+                    for(var j=0; j<exportCols.length; j++){
+                        rowData.push(row.cells[exportCols[j]].innerText.trim());
                     }
-                    data.push(headers);
-    
-                    // Ambil data tbody
-                    for(var i=0; i<table.tBodies[0].rows.length; i++){
-                        var row = table.tBodies[0].rows[i];
+                    data.push(rowData);
+                }
+
+                // Ambil data tfoot (jika ada)
+                if(table.tFoot){
+                    for(var i=0; i<table.tFoot.rows.length; i++){
+                        var row = table.tFoot.rows[i];
                         var rowData = [];
                         for(var j=0; j<exportCols.length; j++){
                             rowData.push(row.cells[exportCols[j]].innerText.trim());
                         }
                         data.push(rowData);
                     }
+                }
+
+                // Buat workbook
+                var wb = XLSX.utils.book_new();
+                var ws = XLSX.utils.aoa_to_sheet(data);
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "Laporan-Kegiatan-Generus.xlsx");
+
+            }, 1000);
+        });
+
+        // Matrix
+        document.getElementById('konfirmasiExportMatrix').addEventListener('click', function () {
     
-                    // Ambil data tfoot (jika ada)
-                    if(table.tFoot){
-                        for(var i=0; i<table.tFoot.rows.length; i++){
-                            var row = table.tFoot.rows[i];
-                            var rowData = [];
-                            for(var j=0; j<exportCols.length; j++){
-                                rowData.push(row.cells[exportCols[j]].innerText.trim());
-                            }
-                            data.push(rowData);
-                        }
-                    }
-    
-                    // Buat workbook
-                    var wb = XLSX.utils.book_new();
-                    var ws = XLSX.utils.aoa_to_sheet(data);
-                    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    
-                    XLSX.writeFile(wb, "Laporan-Kegiatan-Generus.xlsx");
-    
-                }, 1000);
-            });
-    
+            alertify.success("Menyiapkan Dokumen");
+        
+            setTimeout(function () {
+        
+                var table = document.getElementById("LaporanMatrix");
+        
+                // Convert table langsung ke sheet
+                var ws = XLSX.utils.table_to_sheet(table);
+        
+                // Buat workbook
+                var wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Laporan");
+        
+                // Download file
+                XLSX.writeFile(wb, "Laporan-Matrix-Kegiatan-Generus.xlsx");
+        
+            }, 1000);
+        
+        });
     </script>
 </div>

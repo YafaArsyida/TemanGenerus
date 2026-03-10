@@ -261,6 +261,7 @@ class Index extends Component
             [
                 'ms_kegiatan_id' => $this->kegiatan->ms_kegiatan_id,
                 'ms_generus_id'  => $generusId,
+                'tanggal_presensi' => today(),
             ],
             [
                 'waktu_hadir'  => now(),
@@ -290,6 +291,7 @@ class Index extends Component
             [
                 'ms_kegiatan_id' => $this->kegiatan->ms_kegiatan_id,
                 'ms_generus_id'  => $generusId,
+                'tanggal_presensi' => today(),
             ],
             [
                 'waktu_hadir'  => null,

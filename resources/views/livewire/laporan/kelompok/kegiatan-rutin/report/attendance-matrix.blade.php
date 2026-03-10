@@ -7,9 +7,8 @@
         </h5>
 
         <div class="flex-shrink-0 d-flex gap-2 flex-wrap">
-            <button class="btn btn-soft-success">
-                <i class="ri-file-excel-2-line"></i> Export
-            </button>
+            <button data-bs-toggle="modal" data-bs-target="#ExportLaporanMatrix" class="btn btn-soft-success"><i
+                    class="ri-file-excel-2-line pb-0"></i> Export</button>
         </div>
     </div>
 
@@ -58,7 +57,7 @@
         {{-- TABLE MATRIX --}}
         <div class="table-responsive">
 
-            <table class="table table-bordered table-striped align-middle">
+            <table id="LaporanMatrix" class="table table-bordered table-striped align-middle">
 
                 <thead class="table-light">
                     <tr>
@@ -69,12 +68,15 @@
                         <th style="min-width:140px">Kelompok</th>
                         @foreach($tanggalMatrix as $tgl)
                         <th class="text-center" style="min-width:90px">
-                            {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia($tgl, 'l') }}
+                            {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia($tgl, 'l') }}, 
                             <div class="small text-muted">
                                 {{ \App\Http\Controllers\HelperController::formatTanggalIndonesia($tgl, 'd F Y') }}
                             </div>
                         </th>
                         @endforeach
+                        <th class="text-center bg-light">H</th>
+                        <th class="text-center bg-light">I</th>
+                        <th class="text-center bg-light">A</th>
                     </tr>
                 </thead>    
                 <tbody>
@@ -110,6 +112,20 @@
                             @endif
                         </td>
                         @endforeach
+                        @php
+                        $total = $this->totalGenerus($g->ms_generus_id);
+                        @endphp
+                        
+                        <td class="text-center">
+                            {{ $total['hadir'] }}
+                        </td>
+                        
+                        <td class="text-center">
+                            {{ $total['izin'] }}
+                        </td>                        
+                        <td class="text-center">
+                            {{ $total['alfa'] }}
+                        </td>
                     </tr>
                     @empty
                     <tr>
@@ -132,5 +148,4 @@
         </div>
 
     </div>
-
 </div>

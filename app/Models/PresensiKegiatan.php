@@ -15,6 +15,7 @@ class PresensiKegiatan extends Model
     protected $fillable = [
         'ms_kegiatan_id',
         'ms_generus_id',
+        'tanggal_presensi',
         'waktu_hadir',
         'status_hadir',
         'verifikasi',  //kartu, manual
