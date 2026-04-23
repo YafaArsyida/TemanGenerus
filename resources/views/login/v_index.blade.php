@@ -5,7 +5,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>TemanGenerus | Solo Selatan - Sistem Administrasi Terintegrasi untuk Generus</title>
+    <title>TemanGenerus | Sragen Barat - Sistem Administrasi Terintegrasi untuk Generus</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Sistem Administrasi Terintegrasi untuk Generus" name="description" />
     <meta content="ManekaromaTeknologi" name="author" />
@@ -44,9 +44,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center mt-sm-5 mb-4 text-white">
-                            <span class="fw-bold fs-3">TemanGenerus X PPG Solo Selatan</span>
+                            <span class="fw-bold fs-3">TemanGenerus X PPG Sragen Barat</span>
                             <p class="mt-3 fs-15 fw-medium text-white-50">
-                                Sistem Manajemen Terintegrasi untuk Generus Solo Selatan
+                                Sistem Manajemen Terintegrasi untuk Generus Sragen Barat
                             </p>
                         </div>
                     </div>

@@ -254,7 +254,7 @@ class Create extends Component
 
                 'tipe_kegiatan' => $this->tipe_kegiatan,
                 'hari_rutin' => $this->tipe_kegiatan === 'rutin'
-                    ? json_encode($this->hari_rutin)
+                    ? $this->hari_rutin
                     : null,
 
                 'status' => 'aktif',

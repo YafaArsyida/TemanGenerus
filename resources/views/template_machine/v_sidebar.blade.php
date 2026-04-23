@@ -76,7 +76,7 @@
                     <a class="nav-link menu-link {{ request()->routeIs('administrasi.kegiatan-generus') ? 'active' : '' }}"
                         href="{{ route('administrasi.kegiatan-generus') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
-                        <span>Event Kegiatan</span>
+                        <span>Kegiatan Generus</span>
                     </a>
                 </li>                
                 @php($role = auth()->user()->peran)
