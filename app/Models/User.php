@@ -61,16 +61,28 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function ms_desa()
-    {
-        return $this->belongsToMany(Desa::class, 'ms_akses_pengguna', 'ms_pengguna_id', 'ms_desa_id')
-            ->withTimestamps();
-    }
 
     // Di model User
     public function ms_akses_pengguna()
     {
         return $this->hasMany(AksesPengguna::class, 'ms_pengguna_id', 'ms_pengguna_id');
     }
-    
+
+    public function aksesDesa()
+    {
+        return $this->ms_akses_pengguna()->where('scope_type', 'desa');
+    }
+
+    public function aksesKelompok()
+    {
+        return $this->ms_akses_pengguna()->where('scope_type', 'kelompok');
+    }
+
+    public function aksesDaerah()
+    {
+        return $this->ms_akses_pengguna()->where('scope_type', 'daerah');
+    }
+
+
+
 }

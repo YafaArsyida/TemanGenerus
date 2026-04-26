@@ -72,10 +72,10 @@ class Index extends Component
         if ($this->jenjangUsia) {
             [$min, $max] = Generus::jenjangUsiaMap()[$this->jenjangUsia];
 
-            $query->whereRaw("
-                TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE())
-                BETWEEN ? AND ?
-            ", [$min, $max]);
+            $startDate = now()->subYears($max)->startOfDay();
+            $endDate   = now()->subYears($min)->endOfDay();
+
+            $query->whereBetween('tanggal_lahir', [$startDate, $endDate]);
         }
         return $query->orderBy('nama_generus')->get();
     }

@@ -13,11 +13,24 @@ class AksesPengguna extends Model
 
     protected $fillable = [
         'ms_desa_id',
+        'scope_type',
+        'scope_id',
         'ms_pengguna_id',
     ];
 
+    // relasi level
+    public function ms_daerah()
+    {
+        return $this->belongsTo(Daerah::class, 'scope_id', 'ms_daerah_id');
+    }
+
     public function ms_desa()
     {
-        return $this->belongsTo(Desa::class, 'ms_desa_id', 'ms_desa_id');
+        return $this->belongsTo(Desa::class, 'scope_id', 'ms_desa_id');
+    }
+
+    public function ms_kelompok()
+    {
+        return $this->belongsTo(Kelompok::class, 'scope_id', 'ms_kelompok_id');
     }
 }

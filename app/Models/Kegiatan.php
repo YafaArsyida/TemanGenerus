@@ -159,10 +159,10 @@ class Kegiatan extends Model
         if ($this->jenjang && $this->jenjang !== 'semua') {
             [$min, $max] = Generus::jenjangUsiaMap()[$this->jenjang] ?? [0, 100];
 
-            $query->whereRaw("
-            TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE())
-            BETWEEN ? AND ?
-        ", [$min, $max]);
+            $startDate = now()->subYears($max)->startOfDay();
+            $endDate   = now()->subYears($min)->endOfDay();
+
+            $query->whereBetween('tanggal_lahir', [$startDate, $endDate]);
         }
 
         return $query;

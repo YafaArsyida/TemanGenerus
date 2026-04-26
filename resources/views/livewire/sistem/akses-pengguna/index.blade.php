@@ -5,6 +5,7 @@
             <div class="flex-shrink-0">
                 <div class="d-flex gap-2 flex-wrap">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalAddPengguna"
+                        wire:click="$emit('openCreatePengguna')"
                         data-bs-trigger="hover" data-bs-placement="top" title="Petugas Baru">
                         <i class="ri-group-line"></i> Petugas Baru
                     </button>
@@ -47,7 +48,7 @@
                             <th class="text-uppercase">username</th>
                             <th class="text-uppercase">telepon</th> {{-- NEW --}}
                             <th class="text-uppercase">peran</th>
-                            <th class="text-uppercase">akses desa</th>
+                            <th class="text-uppercase">akses</th>
                             <th class="text-uppercase">aksi</th>
                         </tr>
                     </thead>
