@@ -52,7 +52,7 @@ class RankingKehadiranGenerus extends Component
             )
             ->with(['ms_generus.ms_kelompok'])
             ->whereBetween('tanggal_presensi', [$start, $end])
-            ->where('status_hadir', 'Hadir')
+            ->where('status_hadir', 'hadir')
             ->whereHas('ms_generus.ms_kelompok', function ($q) {
                 if ($this->selectedDesa) {
                     $q->where('ms_desa_id', $this->selectedDesa);
