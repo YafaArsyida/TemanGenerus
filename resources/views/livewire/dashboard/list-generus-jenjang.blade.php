@@ -5,8 +5,8 @@
         </h4>
     </div>
     <!-- Search & Filter -->
-    <div class="card-body border border-dashed border-start-0 border-end-0">
-        <div class="row g-3">
+    <div class="card-body">
+        <div class="row g-3 mb-3">
     
             {{-- Search --}}
             <div class="col-xxl-6 col-sm-12">
@@ -32,10 +32,7 @@
             </div>
     
         </div>
-    </div>
-
-    <div class="card-body">
-        <div class="table-responsive table-card">
+        <div class="table-responsive">
             <table class="table table-hover align-middle table-nowrap mb-0">
                 <thead class="table-light">
                     <tr>
@@ -45,22 +42,22 @@
                         <th class="text-center">Usia</th>
                     </tr>
                 </thead>
-
+        
                 <tbody>
                     @forelse ($data as $index => $item)
                     <tr>
                         <td>{{ $data->firstItem() + $index }}</td>
-
+        
                         <td>
                             <span class="fw-medium">
                                 {{ $item->nama_generus }}
                             </span>
                         </td>
-
+        
                         <td>
                             {{ $item->ms_kelompok->nama_kelompok ?? '-' }}
                         </td>
-
+        
                         <td>
                             <i class="ri-calendar-line text-primary me-1 align-bottom"></i>
                             @if($item->usia)
@@ -80,7 +77,7 @@
                 </tbody>
             </table>
         </div>
-
+        
         <!-- Pagination -->
         <div class="mt-3 d-flex justify-content-end">
             {{ $data->links() }}

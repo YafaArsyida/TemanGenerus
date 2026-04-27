@@ -83,7 +83,7 @@
                 
                 {{-- DAERAH --}}
                 @if(in_array($role, ['SUPERADMIN','DAERAH']))
-                <li class="menu-title"><span data-key="t-menu">Laporan Daerah</span></li>
+                {{-- <li class="menu-title"><span data-key="t-menu">Laporan Daerah</span></li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.daerah.rutin') ? 'active' : '' }}"
                         href="{{ route('laporan.daerah.rutin') }}">
@@ -91,18 +91,18 @@
                         <span>Laporan Kegiatan Rutin</span>
                     </a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.daerah.event') ? 'active' : '' }}"
                         href="{{ route('laporan.daerah.event') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
                         <span>Laporan Kegiatan Event</span>
                     </a>
-                </li>
+                </li> --}}
                 @endif
                 
                 {{-- DESA --}}
                 @if(in_array($role, ['SUPERADMIN','DESA']))
-                <li class="menu-title"><span data-key="t-menu">Laporan Desa</span></li>
+                {{-- <li class="menu-title"><span data-key="t-menu">Laporan Desa</span></li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.desa.rutin') ? 'active' : '' }}"
                         href="{{ route('laporan.desa.rutin') }}">
@@ -110,18 +110,18 @@
                         <span>Laporan Kegiatan Rutin</span>
                     </a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.desa.event') ? 'active' : '' }}"
                         href="{{ route('laporan.desa.event') }}">
                         <i class="mdi mdi-calendar-check-outline"></i>
                         <span>Laporan Kegiatan Event</span>
                     </a>
-                </li>
+                </li> --}}
                 @endif
                 
                 {{-- KELOMPOK --}}
                 @if(in_array($role, ['SUPERADMIN','KELOMPOK']))
-                <li class="menu-title"><span data-key="t-menu">Laporan Kelompok</span></li>
+                <li class="menu-title"><span data-key="t-menu">Laporan</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('laporan.kelompok.rutin') ? 'active' : '' }}"
                         href="{{ route('laporan.kelompok.rutin') }}">
