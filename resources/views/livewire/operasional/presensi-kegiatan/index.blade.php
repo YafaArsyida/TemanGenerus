@@ -29,7 +29,7 @@
                                         <i class="ri-group-line text-success me-1"></i>
                                         <span class="fw-medium text-body">
                                             @if($kegiatan->scope === 'daerah')
-                                            Daerah Solo Selatan
+                                            Daerah Sragen Barat
                                             @elseif($kegiatan->scope === 'desa')
                                             Desa {{ $kegiatan->ms_desa->nama_desa ?? '-' }}
                                             @elseif($kegiatan->scope === 'kelompok')

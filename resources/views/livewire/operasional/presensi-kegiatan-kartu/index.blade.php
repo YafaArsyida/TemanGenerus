@@ -12,7 +12,7 @@
                         <div class="text-center mb-3">
                             <img src="{{ asset('assets/images/logo-sm.png') }}" alt="Logo" style="max-height: 80px;" class="mb-2">
                     
-                            <h5 class="fw-bold mb-0">PPG Solo Selatan</h5>
+                            <h5 class="fw-bold mb-0">PPG Sragen Barat</h5>
                     
                             <small class="text-muted">
                                 TemanGenerus
@@ -73,7 +73,7 @@
                                 <i class="ri-group-line text-success me-1"></i>
                                 <span class="fw-medium text-body">
                                     @if($kegiatan->scope === 'daerah')
-                                    Daerah Solo Selatan
+                                    Daerah Sragen Barat
                                     @elseif($kegiatan->scope === 'desa')
                                     Desa {{ $kegiatan->ms_desa->nama_desa ?? '-' }}
                                     @elseif($kegiatan->scope === 'kelompok')
