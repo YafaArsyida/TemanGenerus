@@ -108,7 +108,7 @@
         </div>
     </div>
     {{-- ================= DATA GENERUS ================= --}}
-    <div class="col-xl-7">
+    <div class="col-xl-12">
         <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
             {{-- HEADER --}}
             <div class="card-header bg-white border-0 p-4">
@@ -285,9 +285,8 @@
         </div>
     </div>
     {{-- ================= DATA PRESENSI ================= --}}
-    <div class="col-xl-5">
+    {{-- <div class="col-xl-5">
         <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-            {{-- HEADER --}}
             <div class="card-header bg-white border-0 p-4">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                     <div>
@@ -305,10 +304,8 @@
                     </span>
                 </div>
             </div>
-            {{-- FILTER --}}
             <div class="card-body border-top bg-light-subtle">
                 <div class="row g-3 align-items-end">
-                    {{-- SEARCH --}}
                     <div class="col-lg-5">
                         <label class="form-label fw-semibold">
                             Cari
@@ -320,7 +317,6 @@
                             </i>
                         </div>
                     </div>
-                    {{-- KELOMPOK --}}
                     <div class="col-lg-4">
                         <label class="form-label fw-semibold">
                             Kelompok
@@ -336,7 +332,6 @@
                             @endforeach
                         </select>
                     </div>
-                    {{-- GENDER --}}
                     <div class="col-lg-3">
                         <label class="form-label fw-semibold">
                             L / P
@@ -355,7 +350,6 @@
                     </div>
                 </div>
             </div>
-            {{-- TABLE --}}
             <div class="table-responsive" style="max-height: 850px;">
                 <table class="table align-middle table-hover mb-0">
                     <thead class="table-light sticky-top z-1">
@@ -372,9 +366,6 @@
                             <th>
                                 Status
                             </th>
-                            {{-- <th>
-                                Waktu
-                            </th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -406,11 +397,6 @@
                                 </span>
                                 @endif
                             </td>
-                            {{-- <td>
-                                <span class="fw-semibold">
-                                    {{ \Carbon\Carbon::parse($absen->waktu_hadir)->format('H:i:s') }}
-                                </span>
-                            </td> --}}
                         </tr>
                         @empty
                         <tr>
@@ -425,5 +411,5 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
