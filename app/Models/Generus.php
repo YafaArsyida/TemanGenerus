@@ -33,8 +33,8 @@ class Generus extends Model
             'caberawit' => [0, 11],
             'remaja'    => [12, 30],
             'gp'        => [12, 23],
-            'pra_nikah' => [19, 23],
-            'mandiri'   => [23, 30],
+            'pra_nikah' => [16, 23],
+            'mandiri'   => [16, 30],
         ];
     }
 

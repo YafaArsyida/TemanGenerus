@@ -104,11 +104,11 @@
                     <option value="gp">
                         GP (12 – 23 Tahun)
                     </option>
-                    <option value="pra_nikah">
+                    {{-- <option value="pra_nikah">
                         Pra Nikah (19 – 23 Tahun)
-                    </option>
+                    </option> --}}
                     <option value="mandiri">
-                        Mandiri (&gt; 23 Tahun)
+                        Mandiri (&gt; 17 Tahun)
                     </option>
                 </select>
             </div>

@@ -96,7 +96,7 @@
                                             <option value="caberawit">Caberawit</option>
                                             <option value="remaja">Remaja</option>
                                             <option value="gp">GP</option>
-                                            <option value="pra_nikah">Pra Nikah</option>
+                                            {{-- <option value="pra_nikah">Pra Nikah</option> --}}
                                             <option value="mandiri">Mandiri</option>
                                         </select>
                                         @error('jenjang')
