@@ -159,7 +159,7 @@
                             {{-- DELETE --}}
                             <a href="#ModalDeleteKegiatan" data-bs-toggle="modal" class="btn btn-soft-danger btn-sm rounded-pill px-3"
                                 title="Hapus Kegiatan" wire:click.prevent="$emit('KegiatanDelete', {{ $item->ms_kegiatan_generus_id }})">
-                                <i class="ri-eye-line me-1"></i>
+                                <i class="ri-delete-bin-5-line me-1"></i>
                                 Hapus
                             </a>
                         </td>

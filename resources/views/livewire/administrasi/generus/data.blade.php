@@ -1,6 +1,6 @@
 <div class="card">
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
+        <table class="table table-hover align-middle table-nowrap mb-0">
             <thead class="table-light">
                 <tr class="text-uppercase fw-semibold">
                     <th width="60" class="text-center">No</th>
@@ -27,7 +27,6 @@
                         <a href="#ModalDeleteGenerus" data-bs-toggle="modal"
                             class="btn btn-soft-danger btn-sm rounded-pill px-3" title="Hapus Data Generus"
                             wire:click.prevent="$emit('GenerusDelete', {{ $row->ms_generus_id }})">
-
                             <i class="ri-delete-bin-5-line me-1"></i>
                             Hapus
                         </a>
@@ -128,7 +127,7 @@
                     </td>
                     {{-- AKSI --}}
                     <td>
-                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <div class="d-flex justify-content-center gap-2">
     
                             {{-- DETAIL --}}
                             <a href="#ModalDetailGenerus" data-bs-toggle="modal"

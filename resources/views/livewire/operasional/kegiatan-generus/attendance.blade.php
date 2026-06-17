@@ -144,13 +144,17 @@
                             {{ ucfirst($row->verifikasi ?? '-') }}
                         </td>
                         {{-- WAKTU --}}
-                        <td>
-                            <div class="fw-semibold text-dark">
-                                {{ \Carbon\Carbon::parse($row->waktu_hadir)->format('d M Y') }}
-                            </div>
-                            <small class="text-muted">
-                                {{ \Carbon\Carbon::parse($row->waktu_hadir)->format('H:i') }} WIB
-                            </small>
+                        <td> 
+                            @if($row->status_hadir === 'izin' || empty($row->waktu_hadir)) 
+                                <div class="fw-semibold text-dark">izin</div> 
+                            @else 
+                                <div class="fw-semibold text-dark"> 
+                                    {{ $row->tanggal_presensi ? \App\Http\Controllers\HelperController::formatTanggalIndonesia($row->tanggal_presensi, 'd F Y') : '-' }}
+                                </div> 
+                                <small class="text-muted"> 
+                                    {{ \Carbon\Carbon::parse($row->waktu_hadir)->format('H:i') }} WIB 
+                                </small> 
+                            @endif 
                         </td>
                     </tr>
                     @empty
