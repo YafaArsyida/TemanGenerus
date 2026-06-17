@@ -64,7 +64,7 @@
                                     </div>
                                     <!--end col-->
                                 </div> --}}
-                                <h3 class='mb-0'>PPG Sragen Barat OK</h3>
+                                <h3 class='mb-0'>PPG Sragen Barat</h3>
                             </div>
                         </div>
                     </div>
